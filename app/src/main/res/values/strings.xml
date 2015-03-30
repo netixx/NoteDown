@@ -6,4 +6,8 @@
 
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="menu1">View PDF</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
