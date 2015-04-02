@@ -17,7 +17,7 @@ import fr.enst.infsi351.notedown.util.SystemUiHider;
  *
  * @see SystemUiHider
  */
-public class FullscreenActivity extends Activity {
+public class TestFullscreenActivity extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -57,7 +57,7 @@ public class FullscreenActivity extends Activity {
 //                            FRAGMENT_PDF_RENDERER_BASIC)
 //                    .commit();
 //        }
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_testfullscreen);
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
