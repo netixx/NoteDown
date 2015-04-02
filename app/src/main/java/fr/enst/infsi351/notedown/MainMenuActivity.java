@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import java.io.File;
+
+import fr.enst.infsi351.notedown.FileChooserDialog.FileSelectedListener;
 import fr.enst.infsi351.notedown.util.SystemUiHider;
+import fr.enst.infsi351.notedown.util.TakeNoteSession;
 
 
 /**
@@ -19,12 +23,23 @@ public class MainMenuActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main_menu);
     }
 
+
     public void setSideBySideActivity(View view) {
-        Intent intent = new Intent(this, SideBySideActivity.class);
+        FileChooserDialog.chooseFile(this, ".pdf", new FileSelectedListener() {
+            @Override
+            public void fileSelected(File file) {
+                startActivityWithPdf(SideBySideActivity.class, file);
+            }
+        });
+    }
+
+
+    public void startActivityWithPdf(Class<?> activityClass, File pdf) {
+        Intent intent = new Intent(this, activityClass);
+        intent.putExtra(TakeNoteSession.TARGET_PDF, pdf.toString());
         startActivity(intent);
     }
 }

@@ -16,11 +16,7 @@ package fr.enst.infsi351.notedown;/*
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +27,15 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import fr.enst.infsi351.notedown.util.PdfEngine;
+import fr.enst.infsi351.notedown.util.TakeNoteSession;
+
 /**
  * This fragment has a big {@ImageView} that shows PDF pages, and 2 {@link android.widget.Button}s to move between
  * pages. We use a {@link android.graphics.pdf.PdfRenderer} to render PDF pages as {@link android.graphics.Bitmap}s.
+ *
+ *
+ * Parent Activities must impelment FileSelectedGiver (to give the file to load)
  */
 public class PdfRendererFragment extends Fragment implements View.OnClickListener {
 
@@ -41,21 +43,6 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
      * Key string for saving the state of current page index.
      */
     private static final String STATE_CURRENT_PAGE_INDEX = "current_page_index";
-
-    /**
-     * File descriptor of the PDF.
-     */
-    private ParcelFileDescriptor mFileDescriptor;
-
-    /**
-     * {@link android.graphics.pdf.PdfRenderer} to render the PDF.
-     */
-    private PdfRenderer mPdfRenderer;
-
-    /**
-     * Page that is currently shown on the screen.
-     */
-    private PdfRenderer.Page mCurrentPage;
 
     /**
      * {@link android.widget.ImageView} that shows a PDF page as a {@link android.graphics.Bitmap}
@@ -72,8 +59,10 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
      */
     private Button mButtonNext;
 
-    public PdfRendererFragment() {
+    private PdfEngine engine;
 
+    public PdfRendererFragment() {
+        engine = new PdfEngine();
     }
 
     @Override
@@ -98,14 +87,17 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
         if (null != savedInstanceState) {
             index = savedInstanceState.getInt(STATE_CURRENT_PAGE_INDEX, 0);
         }
-        showPage(index);
+        engine.showPage(index, mImageView);
+        updateUi();
+
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        File targetPdf = new File(activity.getIntent().getStringExtra(TakeNoteSession.TARGET_PDF));
         try {
-            openRenderer(activity);
+            engine.openRenderer(targetPdf);
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(activity, "Error! " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -116,7 +108,7 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
     @Override
     public void onDetach() {
         try {
-            closeRenderer();
+            engine.closeRenderer();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,98 +118,42 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (null != mCurrentPage) {
-            outState.putInt(STATE_CURRENT_PAGE_INDEX, mCurrentPage.getIndex());
+        if (null != engine.getCurrentPage()) {
+            outState.putInt(STATE_CURRENT_PAGE_INDEX, engine.getCurrentPage().getIndex());
         }
     }
 
-    /**
-     * Sets up a {@link android.graphics.pdf.PdfRenderer} and related resources.
-     */
-    private void openRenderer(Context context) throws IOException {
-        mFileDescriptor=ParcelFileDescriptor.open(new File("/sdcard/test.pdf"),ParcelFileDescriptor.MODE_READ_ONLY);
 
-        // In this sample, we read a PDF from the assets directory.
-//        mFileDescriptor = context.getAssets().openFd("test.pdf").getParcelFileDescriptor();
-        // This is the PdfRenderer we use to render the PDF.
-        mPdfRenderer = new PdfRenderer(mFileDescriptor);
-    }
-
-    /**
-     * Closes the {@link android.graphics.pdf.PdfRenderer} and related resources.
-     *
-     * @throws java.io.IOException When the PDF file cannot be closed.
-     */
-    private void closeRenderer() throws IOException {
-        if (null != mCurrentPage) {
-            mCurrentPage.close();
-        }
-        mPdfRenderer.close();
-        mFileDescriptor.close();
-    }
-
-    /**
-     * Shows the specified page of PDF to the screen.
-     *
-     * @param index The page index.
-     */
-    private void showPage(int index) {
-        if (mPdfRenderer.getPageCount() <= index) {
-            return;
-        }
-        // Make sure to close the current page before opening another one.
-        if (null != mCurrentPage) {
-            mCurrentPage.close();
-        }
-        // Use `openPage` to open a specific page in PDF.
-        mCurrentPage = mPdfRenderer.openPage(index);
-        // Important: the destination bitmap must be ARGB (not RGB).
-        Bitmap bitmap = Bitmap.createBitmap(mCurrentPage.getWidth(), mCurrentPage.getHeight(),
-                Bitmap.Config.ARGB_8888);
-        // Here, we render the page onto the Bitmap.
-        // To render a portion of the page, use the second and third parameter. Pass nulls to get
-        // the default result.
-        // Pass either RENDER_MODE_FOR_DISPLAY or RENDER_MODE_FOR_PRINT for the last parameter.
-        mCurrentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-        // We are ready to show the Bitmap to user.
-        mImageView.setImageBitmap(bitmap);
-        updateUi();
-    }
-
-    /**
-     * Updates the state of 2 control buttons in response to the current page index.
-     */
-    private void updateUi() {
-        int index = mCurrentPage.getIndex();
-        int pageCount = mPdfRenderer.getPageCount();
-        mButtonPrevious.setEnabled(0 != index);
-        mButtonNext.setEnabled(index + 1 < pageCount);
-//        getActivity().setTitle(getString(R.string.app_name_with_index, index + 1, pageCount));
-    }
-
-    /**
-     * Gets the number of pages in the PDF. This method is marked as public for testing.
-     *
-     * @return The number of pages.
-     */
-    public int getPageCount() {
-        return mPdfRenderer.getPageCount();
-    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.previous: {
                 // Move to the previous page
-                showPage(mCurrentPage.getIndex() - 1);
+                engine.showPage(engine.getCurrentPage().getIndex() - 1, mImageView);
+                updateUi();
                 break;
             }
             case R.id.next: {
                 // Move to the next page
-                showPage(mCurrentPage.getIndex() + 1);
+                engine.showPage(engine.getCurrentPage().getIndex() + 1, mImageView);
+                updateUi();
+
                 break;
             }
         }
+    }
+
+
+    /**
+     * Updates the state of 2 control buttons in response to the current page index.
+     */
+    private void updateUi() {
+        int index = engine.getCurrentPage().getIndex();
+        int pageCount = engine.getPageCount();
+        mButtonPrevious.setEnabled(0 != index);
+        mButtonNext.setEnabled(index + 1 < pageCount);
+//        getActivity().setTitle(getString(R.string.app_name_with_index, index + 1, pageCount));
     }
 
 }
