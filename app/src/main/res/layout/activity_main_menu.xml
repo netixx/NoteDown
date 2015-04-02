@@ -57,9 +57,9 @@
                 <Button
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/menu1"
+                    android:text="@string/side_by_side"
                     android:id="@+id/button"
-                    android:onClick="setPDFActivity" />
+                    android:onClick="setSideBySideActivity" />
 
                 <Button
                     android:layout_width="wrap_content"
