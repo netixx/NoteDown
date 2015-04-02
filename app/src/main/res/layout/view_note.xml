@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             tools:context="fr.enst.infsi351.notedown.NoteView"
+             android:orientation="vertical"
+             android:background="#887a7a79">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:minWidth="@dimen/fragment_note_title_min_width"
+        android:nestedScrollingEnabled="false"
+        android:minHeight="@dimen/fragment_note_title_min_height"
+        android:hint="Title"
+        android:editable="true"
+        android:enabled="true"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/content"
+        android:minHeight="@dimen/fragment_note_content_min_height"
+        android:minWidth="@dimen/fragment_note_content_min_width"
+        android:hint="Content"/>
+</LinearLayout>

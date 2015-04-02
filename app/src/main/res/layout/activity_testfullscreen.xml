@@ -9,7 +9,7 @@
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
     <fragment android:name="fr.enst.infsi351.notedown.PdfRendererFragment"
-              android:id="@+id/fullscreen_content"
+              android:id="@+id/pdf"
               android:layout_width="match_parent"
               android:layout_height="match_parent" />
 
