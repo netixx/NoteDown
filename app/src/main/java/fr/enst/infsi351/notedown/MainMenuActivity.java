@@ -1,11 +1,11 @@
 package fr.enst.infsi351.notedown;
 
-import fr.enst.infsi351.notedown.util.SystemUiHider;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import fr.enst.infsi351.notedown.util.SystemUiHider;
 
 
 /**
@@ -14,7 +14,7 @@ import android.view.View;
  *
  * @see SystemUiHider
  */
-public class MainMenu extends Activity {
+public class MainMenuActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
