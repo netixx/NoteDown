@@ -5,7 +5,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="title_activity_main_menu">MainMenu</string>
-    <string name="menu1">View PDF</string>
+    <string name="side_by_side">Side by side</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="hello_world">Hello world!</string>
@@ -17,4 +17,8 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_side_by_side">SideBySideActivity</string>
+    <string name="new_doc_ou_new_file">New</string>
+    <string name="cut">Cut</string>
+    <string name="blank">Blank</string>
+    <string name="file_open">Open file</string>
 </resources>

@@ -38,73 +38,70 @@
             android:gravity="fill_horizontal"
             android:measureWithLargestChild="false"
             android:nestedScrollingEnabled="false"
-            android:layout_weight="0.8">
+            android:layout_weight="0.8"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:padding="100dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/textView2" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="@string/new_doc_ou_new_file"
+                    android:id="@+id/textView2"
+                    android:layout_weight="1"
+                    style="@style/Base.TextAppearance.AppCompat.Headline"
+                    android:elegantTextHeight="false"
+                    android:editable="false"
+                    android:gravity="center" />
 
                 <Button
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/menu1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="@string/side_by_side"
                     android:id="@+id/button"
-                    android:onClick="setPDFActivity" />
+                    android:onClick="setPDFActivity"
+                    android:layout_weight="1"
+                    style="@style/Base.TextAppearance.AppCompat.Large" />
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button2" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="@string/cut"
+                    android:id="@+id/button2"
+                    android:layout_weight="1"
+                    style="@style/Base.TextAppearance.AppCompat.Large" />
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button3" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="@string/blank"
+                    android:id="@+id/button3"
+                    android:layout_weight="1"
+                    style="@style/Base.TextAppearance.AppCompat.Large" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Medium Text"
-                        android:id="@+id/textView3" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Button"
-                        android:id="@+id/button4" />
-                </LinearLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="100dp">
 
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button5" />
+                    android:text="@string/file_open"
+                    android:id="@+id/button4"
+                    android:layout_weight="1"
+                    style="@style/Base.TextAppearance.AppCompat.Large" />
+
             </LinearLayout>
 
         </LinearLayout>
