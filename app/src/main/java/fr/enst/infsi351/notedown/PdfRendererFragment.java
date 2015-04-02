@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -134,8 +135,10 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
      * Sets up a {@link android.graphics.pdf.PdfRenderer} and related resources.
      */
     private void openRenderer(Context context) throws IOException {
+        mFileDescriptor=ParcelFileDescriptor.open(new File("/sdcard/test.pdf"),ParcelFileDescriptor.MODE_READ_ONLY);
+
         // In this sample, we read a PDF from the assets directory.
-        mFileDescriptor = context.getAssets().openFd("sample.pdf").getParcelFileDescriptor();
+//        mFileDescriptor = context.getAssets().openFd("test.pdf").getParcelFileDescriptor();
         // This is the PdfRenderer we use to render the PDF.
         mPdfRenderer = new PdfRenderer(mFileDescriptor);
     }

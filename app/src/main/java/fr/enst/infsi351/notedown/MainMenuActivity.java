@@ -24,7 +24,7 @@ public class MainMenuActivity extends Activity {
     }
 
     public void setPDFActivity(View view) {
-        Intent intent = new Intent(this, FullscreenActivity.class);
+        Intent intent = new Intent(this, TestFullscreenActivity.class);
         startActivity(intent);
     }
 }
