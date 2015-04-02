@@ -24,6 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SideBySideActivity"
+            android:label="@string/title_activity_side_by_side" >
+        </activity>
     </application>
 
 </manifest>
