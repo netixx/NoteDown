@@ -23,8 +23,8 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_main_menu);
     }
 
-    public void setPDFActivity(View view) {
-        Intent intent = new Intent(this, TestFullscreenActivity.class);
+    public void setSideBySideActivity(View view) {
+        Intent intent = new Intent(this, SideBySideActivity.class);
         startActivity(intent);
     }
 }
