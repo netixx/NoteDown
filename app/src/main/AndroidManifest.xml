@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.enst.infsi351.notedown" >
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -28,6 +29,14 @@
         <activity
             android:name=".SideBySideActivity"
             android:label="@string/title_activity_side_by_side" >
+        </activity>
+        <activity
+            android:name=".CutActivity"
+            android:label="@string/title_activity_cut" >
+        </activity>
+        <activity
+            android:name=".NotesOnlyActivity"
+            android:label="@string/title_activity_notes_only" >
         </activity>
     </application>
 

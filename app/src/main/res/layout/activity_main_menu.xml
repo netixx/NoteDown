@@ -75,6 +75,7 @@
                     android:text="@string/cut"
                     android:id="@+id/button2"
                     android:layout_weight="1"
+                    android:onClick="setCutActivity"
                     style="@style/Base.TextAppearance.AppCompat.Large" />
 
                 <Button
@@ -83,6 +84,7 @@
                     android:text="@string/blank"
                     android:id="@+id/button3"
                     android:layout_weight="1"
+                    android:onClick="setNotesOnlyActivity"
                     style="@style/Base.TextAppearance.AppCompat.Large" />
             </LinearLayout>
 

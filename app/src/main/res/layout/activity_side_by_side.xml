@@ -9,15 +9,15 @@
                 tools:context="fr.enst.infsi351.notedown.SideBySideActivity">
 
     <fragment android:name="fr.enst.infsi351.notedown.PdfRendererFragment"
-              android:id="@+id/fullscreen_content"
+              android:id="@+id/pdf"
               android:layout_weight="1"
               android:layout_width="0dp"
               android:layout_height="fill_parent" />
 
-    <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="1">
-    </FrameLayout>
+    <fragment android:name="fr.enst.infsi351.notedown.NotesAreaFragment"
+              android:id="@+id/notes"
+              android:layout_weight="1"
+              android:layout_width="0dp"
+              android:layout_height="fill_parent" />
 
 </LinearLayout>

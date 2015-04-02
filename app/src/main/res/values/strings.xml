@@ -21,4 +21,6 @@
     <string name="cut">Cut</string>
     <string name="blank">Blank</string>
     <string name="file_open">Open file</string>
+    <string name="title_activity_cut">CutActivity</string>
+    <string name="title_activity_notes_only">NotesOnlyActivity</string>
 </resources>

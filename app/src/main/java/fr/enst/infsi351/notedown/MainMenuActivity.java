@@ -36,10 +36,27 @@ public class MainMenuActivity extends Activity {
         });
     }
 
+    public void setCutActivity(View view) {
+        FileChooserDialog.chooseFile(this, ".pdf", new FileSelectedListener() {
+            @Override
+            public void fileSelected(File file) {
+                startActivityWithPdf(CutActivity.class, file);
+            }
+        });
+    }
+
+    public void setNotesOnlyActivity(View view) {
+        startActivity(NotesOnlyActivity.class);
+    }
 
     public void startActivityWithPdf(Class<?> activityClass, File pdf) {
         Intent intent = new Intent(this, activityClass);
         intent.putExtra(TakeNoteSession.TARGET_PDF, pdf.toString());
+        startActivity(intent);
+    }
+
+    public void startActivity(Class<?> activityClass) {
+        Intent intent = new Intent(this, activityClass);
         startActivity(intent);
     }
 }
