@@ -12,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:minWidth="@dimen/fragment_note_title_min_width"
+        android:minWidth="@dimen/note_title_min_width"
         android:nestedScrollingEnabled="false"
-        android:minHeight="@dimen/fragment_note_title_min_height"
+        android:minHeight="@dimen/note_title_min_height"
         android:hint="Title"
         android:editable="true"
         android:enabled="true"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/content"
-        android:minHeight="@dimen/fragment_note_content_min_height"
-        android:minWidth="@dimen/fragment_note_content_min_width"
+        android:minHeight="@dimen/note_content_min_height"
+        android:minWidth="@dimen/note_content_min_width"
         android:hint="Content"/>
 </LinearLayout>

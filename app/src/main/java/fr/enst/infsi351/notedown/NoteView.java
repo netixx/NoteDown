@@ -2,6 +2,8 @@ package fr.enst.infsi351.notedown;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 
@@ -32,5 +34,26 @@ public class NoteView extends RelativeLayout {
 
     private void init() {
         inflate(getContext(), R.layout.view_note, this);
+        final View title = findViewById(R.id.title);
+        final View content = findViewById(R.id.content);
+
+//        this.setNextFocusDownId(R.id.title);
+
+        title.setOnKeyListener(new OnKeyListener() {
+
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                        && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_TAB)) {
+                    // Perform action on Enter key press
+                    title.clearFocus();
+                    content.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
+
+
 }
