@@ -76,7 +76,12 @@ public class NotesAreaFragment extends Fragment {
                 new OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        addNote(event.getX(), event.getY());
+                        switch(event.getAction()){
+                            case MotionEvent.ACTION_DOWN:
+                                addNote(event.getX(), event.getY());
+                            default:
+
+                        }
                         return true;
                     }
                 }
