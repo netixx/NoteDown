@@ -72,13 +72,14 @@ public class NotesAreaFragment extends Fragment {
         // Inflate the layout for this fragment
         layout = R.layout.fragment_notes_area;
         View v = inflater.inflate(layout, container, false);
+        final ViewGroup area = (ViewGroup) v.findViewById(R.id.notes_area);
         v.setOnTouchListener(
                 new OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         switch(event.getAction()){
                             case MotionEvent.ACTION_DOWN:
-                                addNote(event.getX(), event.getY());
+                                addNote(area, event.getX(), event.getY());
                             default:
 
                         }
@@ -99,11 +100,11 @@ public class NotesAreaFragment extends Fragment {
 //
 
 
-    public void addNote(float x, float y) {
+    public void addNote(ViewGroup parent, float x, float y) {
         View note = new NoteView(this.getActivity());
         FrameLayout.LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
         params.setMargins((int) x, (int) y, 0, 0);
-        ((FrameLayout) getView()).addView(note, params);
+        parent.addView(note, params);
     }
 
     @Override
