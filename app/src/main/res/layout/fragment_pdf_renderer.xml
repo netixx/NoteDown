@@ -21,14 +21,20 @@
     android:orientation="vertical"
     tools:context=".MainActivity$PlaceholderFragment">
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/image_frame">
+
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:scaleType="fitCenter" />
-
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/pdf_description"/>
+    </FrameLayout>
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
@@ -52,5 +58,6 @@
             android:layout_weight="1"
             android:text="@string/next" />
     </LinearLayout>
+
 
 </LinearLayout>

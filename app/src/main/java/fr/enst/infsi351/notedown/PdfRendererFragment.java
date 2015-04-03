@@ -35,7 +35,6 @@ import fr.enst.infsi351.notedown.util.TakeNoteSession;
  * pages. We use a {@link android.graphics.pdf.PdfRenderer} to render PDF pages as {@link android.graphics.Bitmap}s.
  *
  *
- * Parent Activities must impelment FileSelectedGiver (to give the file to load)
  */
 public class PdfRendererFragment extends Fragment implements View.OnClickListener {
 
@@ -47,7 +46,7 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
     /**
      * {@link android.widget.ImageView} that shows a PDF page as a {@link android.graphics.Bitmap}
      */
-    private ImageView mImageView;
+    protected ImageView mImageView;
 
     /**
      * {@link android.widget.Button} to move to the previous page.
@@ -88,6 +87,7 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
             index = savedInstanceState.getInt(STATE_CURRENT_PAGE_INDEX, 0);
         }
         engine.showPage(index, mImageView);
+
         updateUi();
 
     }
@@ -143,6 +143,7 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
             }
         }
     }
+
 
 
     /**

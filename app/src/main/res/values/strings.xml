@@ -25,4 +25,5 @@
     <string name="title_activity_notes_only">NotesOnlyActivity</string>
     <string name="note_title_hint">Title</string>
     <string name="note_edit_hint">Content</string>
+    <string name="pdf_description">pdf</string>
 </resources>
