@@ -4,7 +4,7 @@
              android:layout_height="wrap_content"
              tools:context="fr.enst.infsi351.notedown.NoteView"
              android:orientation="vertical"
-             android:background="#887a7a79">
+    android:background="#efffbfea">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -15,10 +15,17 @@
         android:minWidth="@dimen/note_title_min_width"
         android:nestedScrollingEnabled="false"
         android:minHeight="@dimen/note_title_min_height"
-        android:hint="Title"
+        android:hint="@string/note_title_hint"
         android:editable="true"
         android:enabled="true"
-        android:textStyle="bold"/>
+        android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|text"
+        style="@style/Base.TextAppearance.AppCompat.Headline"
+        android:elegantTextHeight="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <requestFocus/>
+        </EditText>
 
     <EditText
         android:layout_width="wrap_content"
@@ -26,5 +33,14 @@
         android:id="@+id/content"
         android:minHeight="@dimen/note_content_min_height"
         android:minWidth="@dimen/note_content_min_width"
-        android:hint="Content"/>
+        android:hint="@string/note_edit_hint"
+        android:gravity="top"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:inputType="textAutoComplete|textAutoCorrect|textMultiLine"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:enabled="true"
+        android:elegantTextHeight="true"
+        android:editable="true"
+        android:clickable="true" />
 </LinearLayout>

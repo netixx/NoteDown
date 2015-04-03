@@ -23,4 +23,6 @@
     <string name="file_open">Open file</string>
     <string name="title_activity_cut">CutActivity</string>
     <string name="title_activity_notes_only">NotesOnlyActivity</string>
+    <string name="note_title_hint">Title</string>
+    <string name="note_edit_hint">Content</string>
 </resources>
