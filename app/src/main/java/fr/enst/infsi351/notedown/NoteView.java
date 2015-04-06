@@ -1,9 +1,12 @@
 package fr.enst.infsi351.notedown;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 
@@ -36,6 +39,7 @@ public class NoteView extends RelativeLayout {
         inflate(getContext(), R.layout.view_note, this);
         final View title = findViewById(R.id.title);
         final View content = findViewById(R.id.content);
+        final View note = findViewById(R.id.note);
 
 //        this.setNextFocusDownId(R.id.title);
 
@@ -51,6 +55,32 @@ public class NoteView extends RelativeLayout {
                     return true;
                 }
                 return false;
+            }
+        });
+        note.setOnTouchListener(new OnTouchListener() {
+            private int deltaX;
+            private int deltaY;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int X = (int) event.getRawX();
+                int Y = (int) event.getRawY();
+                int action = event.getAction()& MotionEvent.ACTION_MASK;
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) v.getLayoutParams();
+                        deltaX = X-params.leftMargin;
+                        deltaY = Y-params.topMargin;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams)v.getLayoutParams();
+                        params2.setMargins(X-deltaX,Y-deltaY,0,0);
+                        v.setLayoutParams(params2);
+
+                        break;
+                    default:
+                        break;
+                }
+                return true;
             }
         });
     }

@@ -13,12 +13,14 @@
               android:id="@+id/pdf"
               android:layout_weight="1"
               android:layout_width="0dp"
-              android:layout_height="fill_parent" />
+              android:layout_height="fill_parent"
+        tools:layout="@layout/fragment_pdf_renderer" />
 
     <fragment android:name="fr.enst.infsi351.notedown.NotesAreaFragment"
               android:id="@+id/notes"
               android:layout_weight="1"
               android:layout_width="0dp"
-              android:layout_height="fill_parent" />
+              android:layout_height="fill_parent"
+        tools:layout="@layout/fragment_notes_area" />
 
 </LinearLayout>

@@ -2,7 +2,9 @@ package fr.enst.infsi351.notedown;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ClipData;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -106,7 +108,6 @@ public class NotesAreaFragment extends Fragment {
         params.setMargins((int) x, (int) y, 0, 0);
         parent.addView(note, params);
     }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

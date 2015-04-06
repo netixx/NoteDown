@@ -4,7 +4,8 @@
              android:layout_height="wrap_content"
              tools:context="fr.enst.infsi351.notedown.NoteView"
              android:orientation="vertical"
-    android:background="#efffbfea">
+             android:background="#efffbfea"
+             android:id="@+id/note">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -23,7 +24,8 @@
         android:elegantTextHeight="true"
         android:clickable="true"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:layout_marginTop="10dp">
         <requestFocus/>
         </EditText>
 
