@@ -19,6 +19,9 @@ import android.widget.RelativeLayout;
 // */
 public class NoteView extends RelativeLayout implements OnTouchListener {
 
+    public int minWidth;
+    public int minHeight;
+
     private View parent;
     public NoteView(Context context, View parent) {
         super(context);
@@ -26,6 +29,8 @@ public class NoteView extends RelativeLayout implements OnTouchListener {
     }
 
     private void init(View parent) {
+        minWidth = (int) getResources().getDimension(R.dimen.note_min_width);
+        minHeight = (int) getResources().getDimension(R.dimen.note_min_height);
         this.parent = parent;
         inflate(getContext(), R.layout.view_note, this);
         final View title = findViewById(R.id.title);

@@ -6,6 +6,8 @@
              android:orientation="vertical"
              android:background="#efffbfea"
              android:id="@+id/note"
+              android:minHeight="@dimen/note_min_height"
+              android:minWidth="@dimen/note_min_width"
     >
 
     <EditText
