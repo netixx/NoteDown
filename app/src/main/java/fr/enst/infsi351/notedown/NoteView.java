@@ -1,12 +1,11 @@
 package fr.enst.infsi351.notedown;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 
@@ -18,29 +17,19 @@ import android.widget.RelativeLayout;
 // * Use the {@link NoteFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class NoteView extends RelativeLayout {
+public class NoteView extends RelativeLayout implements OnTouchListener {
 
-    public NoteView(Context context) {
+    private View parent;
+    public NoteView(Context context, View parent) {
         super(context);
-        init();
+        init(parent);
     }
 
-    public NoteView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public NoteView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
-    }
-
-    private void init() {
+    private void init(View parent) {
+        this.parent = parent;
         inflate(getContext(), R.layout.view_note, this);
         final View title = findViewById(R.id.title);
         final View content = findViewById(R.id.content);
-        final View note = findViewById(R.id.note);
-
 //        this.setNextFocusDownId(R.id.title);
 
         title.setOnKeyListener(new OnKeyListener() {
@@ -57,33 +46,41 @@ public class NoteView extends RelativeLayout {
                 return false;
             }
         });
-        note.setOnTouchListener(new OnTouchListener() {
-            private int deltaX;
-            private int deltaY;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int X = (int) event.getRawX();
-                int Y = (int) event.getRawY();
-                int action = event.getAction()& MotionEvent.ACTION_MASK;
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) v.getLayoutParams();
-                        deltaX = X-params.leftMargin;
-                        deltaY = Y-params.topMargin;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams)v.getLayoutParams();
-                        params2.setMargins(X-deltaX,Y-deltaY,0,0);
-                        v.setLayoutParams(params2);
+        this.setOnTouchListener(this);
+        title.setOnTouchListener(this);
+        content.setOnTouchListener(this);
 
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
+    private int _xDelta;
+    private int _yDelta;
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        final int X = (int) event.getRawX();
+        final int Y = (int) event.getRawY();
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN:
+                FrameLayout.LayoutParams lParams = (FrameLayout.LayoutParams) this.getLayoutParams();
+                _xDelta = X - lParams.leftMargin;
+                _yDelta = Y - lParams.topMargin;
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) this.getLayoutParams();
+                layoutParams.leftMargin = X - _xDelta;
+                layoutParams.topMargin = Y - _yDelta;
+//                        layoutParams.rightMargin = -250;
+//                        layoutParams.bottomMargin = -250;
+                this.setLayoutParams(layoutParams);
+                break;
+        }
+        parent.invalidate();
+        return false;
+    }
 }
