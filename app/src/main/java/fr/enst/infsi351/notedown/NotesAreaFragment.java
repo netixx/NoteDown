@@ -27,6 +27,11 @@ import java.util.ArrayList;
 public class NotesAreaFragment extends Fragment {
     private int layout;
     private int INTER_NOTES_MARGIN = 0;
+
+    public int getCurrentPage() {
+        return current_page;
+    }
+
     private int current_page = 0;
     private ViewGroup area;
 
@@ -84,7 +89,7 @@ public class NotesAreaFragment extends Fragment {
     }
 
     private void displayPage(int n, ViewGroup parent) {
-        if (n > pages.size()) {
+        if (n >= pages.size()) {
             createPage();
         }
         //remove all notes
@@ -134,7 +139,6 @@ public class NotesAreaFragment extends Fragment {
         }
         return p;
     }
-
 
 
     @Override
