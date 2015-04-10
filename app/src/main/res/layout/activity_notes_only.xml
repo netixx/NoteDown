@@ -13,31 +13,13 @@
               android:layout_weight="1"
               tools:layout="@layout/fragment_notes_area"/>
 
-    <LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:measureWithLargestChild="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/previous"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/previous"
-            android:onClick="previousPage"/>
-
-        <Button
-            android:id="@+id/next"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/next"
-            android:onClick="nextPage"/>
-    </LinearLayout>
+    <fragment android:name="fr.enst.infsi351.notedown.ControlsFragment"
+              android:id="@+id/controls"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:measureWithLargestChild="true"
+              android:orientation="horizontal"
+              tools:layout="@layout/fragment_controls" />
 
 
 </LinearLayout>

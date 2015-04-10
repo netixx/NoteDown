@@ -4,21 +4,35 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+
+import fr.enst.infsi351.notedown.ControlsFragment.OnNextClick;
+import fr.enst.infsi351.notedown.ControlsFragment.OnPreviousClick;
 
 
 public class NotesOnlyActivity extends ActionBarActivity {
     NotesAreaFragment notes;
+    ControlsFragment controls;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_only);
         notes = (NotesAreaFragment) getFragmentManager().findFragmentById(R.id.notes);
-        if (notes.getCurrentPage() == 0) {
-            Button prev = (Button) findViewById(R.id.previous);
-            prev.setEnabled(false);
-        }
+        controls = (ControlsFragment) getFragmentManager().findFragmentById(R.id.controls);
+        controls.setOnNextListener(new OnNextClick() {
+            @Override
+            public void onClick() {
+                notes.nextPage();
+                checkUi();
+            }
+        });
+        controls.setOnPreviousListener(new OnPreviousClick() {
+            @Override
+            public void onClick() {
+                notes.previousPage();
+                checkUi();
+            }
+        });
+        checkUi();
     }
 
 
@@ -44,24 +58,11 @@ public class NotesOnlyActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void nextPage(View view) {
-//        NotesAreaFragment notes = (NotesAreaFragment) getFragmentManager().findFragmentById(R.id.notes);
-        notes.nextPage();
-        checkUi();
-    }
-
-    public void previousPage(View view) {
-//        NotesAreaFragment notes = (NotesAreaFragment) getFragmentManager().findFragmentById(R.id.notes);
-        notes.previousPage();
-        checkUi();
-    }
-
     private void checkUi() {
-        Button prev = (Button) findViewById(R.id.previous);
         if (notes.getCurrentPage() == 0) {
-            prev.setEnabled(false);
+            controls.setPreviousEnabled(false);
         } else {
-            prev.setEnabled(true);
+            controls.setPreviousEnabled(true);
         }
     }
 }

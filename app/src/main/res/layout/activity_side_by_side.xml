@@ -2,25 +2,36 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="fr.enst.infsi351.notedown.SideBySideActivity"
-                android:background="@color/default_background">
+                android:background="@color/default_background"
+                android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
-    <fragment android:name="fr.enst.infsi351.notedown.SideBySidePdfRendererFragment"
-              android:id="@+id/pdf"
-              android:layout_weight="1"
-              android:layout_width="0dp"
-              android:layout_height="fill_parent"
-        tools:layout="@layout/fragment_pdf_renderer" />
+        <fragment android:name="fr.enst.infsi351.notedown.SideBySidePdfRendererFragment"
+                  android:id="@+id/pdf"
+                  android:layout_weight="1"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+            tools:layout="@layout/fragment_pdf_renderer" />
 
-    <fragment android:name="fr.enst.infsi351.notedown.NotesAreaFragment"
-              android:id="@+id/notes"
-              android:layout_weight="1"
-              android:layout_width="0dp"
-              android:layout_height="fill_parent"
-        tools:layout="@layout/fragment_notes_area" />
+        <fragment android:name="fr.enst.infsi351.notedown.NotesAreaFragment"
+                  android:id="@+id/notes"
+                  android:layout_weight="1"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+            tools:layout="@layout/fragment_notes_area" />
 
+    </LinearLayout>
+    <fragment android:name="fr.enst.infsi351.notedown.ControlsFragment"
+              android:id="@+id/controls"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:measureWithLargestChild="true"
+              android:orientation="horizontal"
+              tools:layout="@layout/fragment_controls" />
 </LinearLayout>

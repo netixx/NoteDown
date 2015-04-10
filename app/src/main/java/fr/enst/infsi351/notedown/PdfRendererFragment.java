@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,7 +35,7 @@ import fr.enst.infsi351.notedown.util.TakeNoteSession;
  *
  *
  */
-public class PdfRendererFragment extends Fragment implements View.OnClickListener {
+public class PdfRendererFragment extends Fragment {
 
     /**
      * Key string for saving the state of current page index.
@@ -47,16 +46,6 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
      * {@link android.widget.ImageView} that shows a PDF page as a {@link android.graphics.Bitmap}
      */
     protected ImageView mImageView;
-
-    /**
-     * {@link android.widget.Button} to move to the previous page.
-     */
-    private Button mButtonPrevious;
-
-    /**
-     * {@link android.widget.Button} to move to the next page.
-     */
-    private Button mButtonNext;
 
     private PdfEngine engine;
 
@@ -75,11 +64,11 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         // Retain view references.
         mImageView = (ImageView) view.findViewById(R.id.image);
-        mButtonPrevious = (Button) view.findViewById(R.id.previous);
-        mButtonNext = (Button) view.findViewById(R.id.next);
-        // Bind events.
-        mButtonPrevious.setOnClickListener(this);
-        mButtonNext.setOnClickListener(this);
+//        mButtonPrevious = (Button) view.findViewById(R.id.previous);
+//        mButtonNext = (Button) view.findViewById(R.id.next);
+//        // Bind events.
+//        mButtonPrevious.setOnClickListener(this);
+//        mButtonNext.setOnClickListener(this);
         // Show the first page by default.
         int index = 0;
         // If there is a savedInstanceState (screen orientations, etc.), we restore the page index.
@@ -87,9 +76,6 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
             index = savedInstanceState.getInt(STATE_CURRENT_PAGE_INDEX, 0);
         }
         engine.showPage(index, mImageView);
-
-        updateUi();
-
     }
 
     @Override
@@ -123,38 +109,20 @@ public class PdfRendererFragment extends Fragment implements View.OnClickListene
         }
     }
 
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.previous: {
-                // Move to the previous page
-                engine.showPage(engine.getCurrentPage().getIndex() - 1, mImageView);
-                updateUi();
-                break;
-            }
-            case R.id.next: {
-                // Move to the next page
-                engine.showPage(engine.getCurrentPage().getIndex() + 1, mImageView);
-                updateUi();
-
-                break;
-            }
-        }
+    public void showNextPage() {
+        engine.showPage(engine.getCurrentPage().getIndex() + 1, mImageView);
     }
 
+    public void showPreviousPage() {
+        engine.showPage(engine.getCurrentPage().getIndex() - 1, mImageView);
+    }
 
+    public int getCurrentPageIndex() {
+        return engine.getCurrentPage().getIndex();
+    }
 
-    /**
-     * Updates the state of 2 control buttons in response to the current page index.
-     */
-    private void updateUi() {
-        int index = engine.getCurrentPage().getIndex();
-        int pageCount = engine.getPageCount();
-        mButtonPrevious.setEnabled(0 != index);
-        mButtonNext.setEnabled(index + 1 < pageCount);
-//        getActivity().setTitle(getString(R.string.app_name_with_index, index + 1, pageCount));
+    public int getPageCount() {
+        return engine.getPageCount();
     }
 
 }
