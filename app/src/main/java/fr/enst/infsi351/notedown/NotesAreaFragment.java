@@ -2,8 +2,6 @@ package fr.enst.infsi351.notedown;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -62,10 +60,27 @@ public class NotesAreaFragment extends Fragment {
         v.setOnTouchListener(
                 new OnTouchListener() {
                     @Override
-                    public boolean onTouch(View v, MotionEvent event) {
+                    public boolean onTouch(View v, final MotionEvent event) {
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-                                addNewNote(area, pages.get(current_page), event.getX(), event.getY());
+//                                AsyncTask<Void, Void, Void> t = new AsyncTask<Void, Void, Void>() {
+//                                    @Override
+//                                    protected Void doInBackground(Void... params) {
+//                                        return null;
+//                                    }
+//
+//                                    protected void onPreExecute() {
+//                                        addNewNote(pages.get(current_page), event.getX(), event.getY());
+//                                    }
+//                                    protected void onPostExecute(Void result) {
+//                                        super.onPostExecute(result);
+//                                        for (View note : pages.get(current_page)) {
+//                                            System.out.println("note.getWidth() = " + note.getWidth());
+//                                            System.out.println("note.getHeight() = " + note.getHeight());}
+//                                    }
+//                                };
+//                                t.execute();
+                                addNewNote(pages.get(current_page), event.getX(), event.getY());
                             default:
 
                         }
@@ -104,45 +119,91 @@ public class NotesAreaFragment extends Fragment {
         pages.add(new ArrayList<NoteView>());
     }
 
-    public void addNewNote(final ViewGroup parent, ArrayList<NoteView> page, float x, float y) {
-        NoteView note = new NoteView(this.getActivity(), parent);
+    public void addNewNote(final ArrayList<NoteView> page, final float x, final float y) {
+        final NoteView note = new NoteView(this.getActivity(), this);
+        //hide and add view to get height and width
         FrameLayout.LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-        Point insertPoint = getInsertionPoint(page, (int) x, (int) y, note.minWidth, note.minHeight);
-        params.setMargins(insertPoint.x, insertPoint.y, 0, 0);
+        params.setMargins((int) x , (int) y, 0, 0);
+        area.addView(note, params);
         page.add(note);
-        parent.addView(note, params);
     }
 
-
-    public Point getInsertionPoint(ArrayList<NoteView> page, int x, int y, int width, int height) {
-        Point p = new Point(x, y);
-        //prevent overlapping of notes on insertion
-        for (View note : page) {
-            FrameLayout.LayoutParams par = (LayoutParams) note.getLayoutParams();
-            Rect rect = new Rect(par.leftMargin, par.topMargin, par.leftMargin+note.getWidth(), par.topMargin+note.getHeight());
-//            int[] l = new int[2];
-//            note.getLocationOnScreen(l);
-//            Rect rect = new Rect(l[0], l[1], l[0] + note.getWidth(), l[1] + note.getHeight());
-            if (rect.intersects(p.x, p.y, p.x + width, p.y + height)) {
-                //bottom line
-                if (rect.intersects(p.x, p.y+height, p.x+width,p.y+height)) {
-                    //move new Note up
-                    p.y = Math.min(p.y, rect.top - height - INTER_NOTES_MARGIN);
-                }
-                //right line
-                if (rect.intersects(p.x+width, p.y, p.x+width,p.y+height)) {
-                    //move note left
-                    p.x = Math.min(p.x, rect.left - width - INTER_NOTES_MARGIN);
-                }
-
-            }
-        }
-        return p;
-    }
+//    public void addNewNote(final ArrayList<NoteView> page, final float x, final float y) {
+//        final NoteView note = new NoteView(this.getActivity(), this);
+//        //hide and add view to get height and width
+//        FrameLayout.LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+//        params.setMargins((int)x , (int) y, 0, 0);
+//        area.addView(note, params);
+//        page.add(note);
+//        note.setVisibility(View.INVISIBLE);
+//
+//        // when view in draw, we calculate it's size and adjust it's position
+//        final ViewTreeObserver vto = area.getViewTreeObserver();
+//        vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                FrameLayout.LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+//                Point insertPoint = getInsertionPoint(page, (int) x, (int) y, note.getWidth(), note.getHeight());
+//                params.setMargins(insertPoint.x, insertPoint.y, 0, 0);
+//                note.setLayoutParams(params);
+//                note.setVisibility(View.VISIBLE);
+//                vto.removeOnGlobalLayoutListener(this);
+//            }
+//        });
+//
+//    }
+//
+//
+//    public Point getInsertionPoint(ArrayList<NoteView> page, int x, int y, int width, int height) {
+//        Point p = new Point(x, y);
+//        //prevent overlapping of notes on insertion
+//        for (View note : page) {
+//            FrameLayout.LayoutParams par = (LayoutParams) note.getLayoutParams();
+//            Rect rect = new Rect(par.leftMargin, par.topMargin, par.leftMargin+note.getWidth(), par.topMargin+note.getHeight());
+////            int[] l = new int[2];
+////            note.getLocationOnScreen(l);
+////            Rect rect = new Rect(l[0], l[1], l[0] + note.getWidth(), l[1] + note.getHeight());
+//            if (rect.intersects(p.x, p.y, p.x + width, p.y + height)) {
+//                //bottom line
+//                if (rect.intersects(p.x, p.y+height, p.x+width,p.y+height)) {
+//                    //move new Note up
+//                    p.y = Math.min(p.y, rect.top - height - INTER_NOTES_MARGIN);
+//                }
+//                //right line
+//                if (rect.intersects(p.x+width, p.y, p.x+width,p.y+height)) {
+//                    //move note left
+//                    p.x = Math.min(p.x, rect.left - width - INTER_NOTES_MARGIN);
+//                }
+//
+//                //top line
+//                if (rect.intersects(p.x, p.y, p.x+width,p.y)) {
+//                    //move new Note up
+//                    p.y = Math.min(p.y, rect.top - height - INTER_NOTES_MARGIN);
+//                }
+//                //left line
+//                if (rect.intersects(p.x, p.y, p.x,p.y+height)) {
+//                    //move note left
+//                    p.x = Math.max(p.x, rect.right + INTER_NOTES_MARGIN);
+//                }
+//
+//            }
+//        }
+//        return p;
+//    }
 
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+    }
+
+
+    public void removeDisplayedNote(NoteView v) {
+        pages.get(current_page).remove(v);
+        area.removeView(v);
+    }
+
+    public void invalidate() {
+        area.invalidate();
     }
 }

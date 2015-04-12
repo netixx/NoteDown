@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 
 ///**
@@ -18,18 +17,19 @@ import android.widget.RelativeLayout;
 // * Use the {@link NoteFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class NoteView extends RelativeLayout implements OnTouchListener, View.OnClickListener {
+public class NoteView extends FrameLayout implements OnTouchListener, View.OnClickListener {
 
     public int minWidth;
     public int minHeight;
 
-    private View parent;
-    public NoteView(Context context, View parent) {
+    private NotesAreaFragment parent;
+
+    public NoteView(Context context, NotesAreaFragment parent) {
         super(context);
         init(parent);
     }
 
-    private void init(View parent) {
+    private void init(NotesAreaFragment parent) {
         minWidth = (int) getResources().getDimension(R.dimen.note_min_width);
         minHeight = (int) getResources().getDimension(R.dimen.note_min_height);
         this.parent = parent;
@@ -44,7 +44,7 @@ public class NoteView extends RelativeLayout implements OnTouchListener, View.On
                 // If the event is a key-down event on the "enter" button
                 if ((event.getAction() == KeyEvent.ACTION_DOWN)
                         && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_TAB)) {
-                    // Perform action on Enter key press
+                    // Perform action on Enter or TABkey press
                     title.clearFocus();
                     content.requestFocus();
                     return true;
@@ -52,10 +52,12 @@ public class NoteView extends RelativeLayout implements OnTouchListener, View.On
                 return false;
             }
         });
+
         this.setOnTouchListener(this);
         title.setOnTouchListener(this);
         content.setOnTouchListener(this);
 
+        //controls related callbacks
         Button b = (Button) this.findViewById(R.id.button_close);
         b.setOnClickListener(this);
 
@@ -97,8 +99,9 @@ public class NoteView extends RelativeLayout implements OnTouchListener, View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_close:
-                this.removeAllViews();
+                parent.removeDisplayedNote(this);
                 break;
         }
     }
+
 }
