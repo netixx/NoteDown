@@ -9,4 +9,5 @@
     <dimen name="note_min_width">200dp</dimen>
     <dimen name="note_min_height">140dp</dimen>
     <dimen name="notes_inter_margin">5dp</dimen>
+    <dimen name="note_menu">40px</dimen>
 </resources>

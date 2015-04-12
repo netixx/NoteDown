@@ -1,57 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
              tools:context="fr.enst.infsi351.notedown.NoteView"
-             android:orientation="vertical"
-             android:background="@drawable/note_bg"
-             android:id="@+id/note"
-              android:minHeight="@dimen/note_min_height"
-              android:minWidth="@dimen/note_min_width"
-    android:baselineAligned="false"
-    android:isScrollContainer="false"
-    android:padding="4dp"
-    android:soundEffectsEnabled="false"
-    android:animationCache="false">
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:measureWithLargestChild="false">
 
-    <EditText
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/title"
-        android:minWidth="@dimen/note_title_min_width"
-        android:nestedScrollingEnabled="false"
-        android:minHeight="@dimen/note_title_min_height"
-        android:editable="true"
-        android:enabled="true"
-        android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|text"
-        android:elegantTextHeight="true"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="@string/note_title_hint"
-        android:textColor="#ff2e4c31"
-        android:background="#00000000"
-        android:paddingBottom="1dp"
-        android:textSize="20sp"
-        android:gravity="top">
-        <requestFocus/>
-        </EditText>
+        android:orientation="vertical"
+        android:background="@drawable/note_bg"
+        android:minHeight="@dimen/note_min_height"
+        android:minWidth="@dimen/note_min_width"
+        android:baselineAligned="false"
+        android:isScrollContainer="false"
+        android:padding="4dp"
+        android:soundEffectsEnabled="false"
+        android:animationCache="false">
 
-    <EditText
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:minWidth="@dimen/note_title_min_width"
+            android:nestedScrollingEnabled="false"
+            android:minHeight="@dimen/note_title_min_height"
+            android:editable="true"
+            android:enabled="true"
+            android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|text"
+            android:elegantTextHeight="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/note_title_hint"
+            android:textColor="#ff2e4c31"
+            android:background="#00000000"
+            android:paddingBottom="1dp"
+            android:textSize="20sp"
+            android:gravity="top">
+            <requestFocus/>
+            </EditText>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/content"
+            android:minHeight="@dimen/note_content_min_height"
+            android:minWidth="@dimen/note_content_min_width"
+            android:hint="@string/note_edit_hint"
+            android:gravity="top"
+            android:inputType="textAutoComplete|textAutoCorrect|textMultiLine"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:enabled="true"
+            android:elegantTextHeight="true"
+            android:editable="true"
+            android:clickable="true"
+            android:textSize="16sp"
+            android:background="#00FFFFFF" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/content"
-        android:minHeight="@dimen/note_content_min_height"
-        android:minWidth="@dimen/note_content_min_width"
-        android:hint="@string/note_edit_hint"
-        android:gravity="top"
-        android:inputType="textAutoComplete|textAutoCorrect|textMultiLine"
-        android:focusableInTouchMode="true"
         android:focusable="true"
-        android:enabled="true"
-        android:elegantTextHeight="true"
-        android:editable="true"
-        android:clickable="true"
-        android:textSize="16sp"
-        android:background="#00FFFFFF" />
+        android:background="@drawable/note_menu_bg"
+        android:layout_marginLeft="3dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="3dp">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:id="@+id/button_close"
+            android:background="@android:drawable/ic_menu_close_clear_cancel"
+            android:layout_width="@dimen/note_menu"
+            android:layout_height="@dimen/note_menu" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@android:drawable/ic_menu_add"
+            android:layout_width="@dimen/note_menu"
+            android:layout_height="@dimen/note_menu" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@android:drawable/ic_menu_edit"
+            android:layout_width="@dimen/note_menu"
+            android:layout_height="@dimen/note_menu" />
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -17,7 +18,7 @@ import android.widget.RelativeLayout;
 // * Use the {@link NoteFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class NoteView extends RelativeLayout implements OnTouchListener {
+public class NoteView extends RelativeLayout implements OnTouchListener, View.OnClickListener {
 
     public int minWidth;
     public int minHeight;
@@ -55,6 +56,9 @@ public class NoteView extends RelativeLayout implements OnTouchListener {
         title.setOnTouchListener(this);
         content.setOnTouchListener(this);
 
+        Button b = (Button) this.findViewById(R.id.button_close);
+        b.setOnClickListener(this);
+
     }
 
     private int _xDelta;
@@ -87,5 +91,14 @@ public class NoteView extends RelativeLayout implements OnTouchListener {
         }
         parent.invalidate();
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_close:
+                this.removeAllViews();
+                break;
+        }
     }
 }

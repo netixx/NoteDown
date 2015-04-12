@@ -64,7 +64,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:text="@string/side_by_side"
-                    android:id="@+id/button"
+                    android:id="@+id/button_close"
                     android:onClick="setSideBySideActivity"
                     android:layout_weight="1"
                     style="@style/Base.TextAppearance.AppCompat.Large" />
