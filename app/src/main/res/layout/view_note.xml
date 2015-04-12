@@ -4,11 +4,15 @@
              android:layout_height="wrap_content"
              tools:context="fr.enst.infsi351.notedown.NoteView"
              android:orientation="vertical"
-             android:background="#efffbfea"
+             android:background="@drawable/note_bg"
              android:id="@+id/note"
               android:minHeight="@dimen/note_min_height"
               android:minWidth="@dimen/note_min_width"
-    >
+    android:baselineAligned="false"
+    android:isScrollContainer="false"
+    android:padding="4dp"
+    android:soundEffectsEnabled="false"
+    android:animationCache="false">
 
     <EditText
         android:layout_width="wrap_content"
@@ -17,15 +21,19 @@
         android:minWidth="@dimen/note_title_min_width"
         android:nestedScrollingEnabled="false"
         android:minHeight="@dimen/note_title_min_height"
-        android:hint="@string/note_title_hint"
         android:editable="true"
         android:enabled="true"
         android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|text"
-        style="@style/Base.TextAppearance.AppCompat.Headline"
         android:elegantTextHeight="true"
         android:clickable="true"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:hint="@string/note_title_hint"
+        android:textColor="#ff2e4c31"
+        android:background="#00000000"
+        android:paddingBottom="1dp"
+        android:textSize="20sp"
+        android:gravity="top">
         <requestFocus/>
         </EditText>
 
@@ -37,12 +45,13 @@
         android:minWidth="@dimen/note_content_min_width"
         android:hint="@string/note_edit_hint"
         android:gravity="top"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:inputType="textAutoComplete|textAutoCorrect|textMultiLine"
         android:focusableInTouchMode="true"
         android:focusable="true"
         android:enabled="true"
         android:elegantTextHeight="true"
         android:editable="true"
-        android:clickable="true" />
+        android:clickable="true"
+        android:textSize="16sp"
+        android:background="#00FFFFFF" />
 </LinearLayout>
