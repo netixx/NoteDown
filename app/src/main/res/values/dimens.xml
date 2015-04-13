@@ -10,4 +10,6 @@
     <dimen name="note_min_height">140dp</dimen>
     <dimen name="notes_inter_margin">5dp</dimen>
     <dimen name="note_menu">40px</dimen>
+    <dimen name="main_menu_button_height">100dp</dimen>
+    <dimen name="main_menu_button_width">300dp</dimen>
 </resources>

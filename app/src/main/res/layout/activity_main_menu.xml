@@ -1,113 +1,109 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#0099cc"
-    tools:context="fr.enst.infsi351.notedown.MainMenuActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#0099cc"
+              android:orientation="vertical"
+              tools:context="fr.enst.infsi351.notedown.MainMenuActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:background="#1166aa"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:textSize="50sp"
+        android:layout_marginBottom="30dp"/>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:focusable="false"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.2"
-            android:background="#1166aa"
-            android:gravity="center_horizontal"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:padding="5dp" />
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="fill_horizontal"
+        android:measureWithLargestChild="false"
+        android:nestedScrollingEnabled="false"
+        android:baselineAligned="false"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="false">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="fill_horizontal"
-            android:measureWithLargestChild="false"
-            android:nestedScrollingEnabled="false"
-            android:layout_weight="0.8"
-            android:baselineAligned="false">
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="100dp"
+            android:background="@android:color/holo_green_dark">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/new_doc_ou_new_file"
+                android:id="@+id/textView2"
+                style="@style/Base.TextAppearance.AppCompat.Headline"
+                android:elegantTextHeight="false"
+                android:editable="false"
                 android:gravity="center"
-                android:padding="100dp">
+                android:textSize="45dp"
+                android:layout_marginBottom="20dp"/>
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:text="@string/new_doc_ou_new_file"
-                    android:id="@+id/textView2"
-                    android:layout_weight="1"
-                    style="@style/Base.TextAppearance.AppCompat.Headline"
-                    android:elegantTextHeight="false"
-                    android:editable="false"
-                    android:gravity="center" />
+            <Button
+                android:layout_width="@dimen/main_menu_button_width"
+                android:layout_height="@dimen/main_menu_button_height"
+                android:text="@string/side_by_side"
+                android:id="@+id/button_close"
+                android:onClick="setSideBySideActivity"
+                style="@style/Base.TextAppearance.AppCompat.Large" />
 
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:text="@string/side_by_side"
-                    android:id="@+id/button_close"
-                    android:onClick="setSideBySideActivity"
-                    android:layout_weight="1"
-                    style="@style/Base.TextAppearance.AppCompat.Large" />
+            <Button
+                android:layout_width="@dimen/main_menu_button_width"
+                android:layout_height="@dimen/main_menu_button_height"
+                android:text="@string/cut"
+                android:id="@+id/button2"
+                android:onClick="setCutActivity"
+                style="@style/Base.TextAppearance.AppCompat.Large" />
 
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:text="@string/cut"
-                    android:id="@+id/button2"
-                    android:layout_weight="1"
-                    android:onClick="setCutActivity"
-                    style="@style/Base.TextAppearance.AppCompat.Large" />
+            <Button
+                android:layout_width="@dimen/main_menu_button_width"
+                android:layout_height="@dimen/main_menu_button_height"
+                android:text="@string/blank"
+                android:id="@+id/button3"
+                android:onClick="setNotesOnlyActivity"
+                style="@style/Base.TextAppearance.AppCompat.Large" />
+        </LinearLayout>
 
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:text="@string/blank"
-                    android:id="@+id/button3"
-                    android:layout_weight="1"
-                    android:onClick="setNotesOnlyActivity"
-                    style="@style/Base.TextAppearance.AppCompat.Large" />
-            </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="100dp"
+            android:background="@android:color/holo_orange_dark">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="100dp">
+            <Button
+                android:layout_width="@dimen/main_menu_button_width"
+                android:layout_height="@dimen/main_menu_button_height"
+                android:text="@string/file_open"
+                style="@style/Base.TextAppearance.AppCompat.Large" />
 
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/file_open"
-                    android:id="@+id/button4"
-                    android:layout_weight="1"
-                    style="@style/Base.TextAppearance.AppCompat.Large" />
-
-            </LinearLayout>
+            <ListView
+                android:layout_width="@dimen/main_menu_button_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/recent_sessions"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+            </ListView>
 
         </LinearLayout>
 
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>

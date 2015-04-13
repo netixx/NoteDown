@@ -4,10 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.enst.infsi351.notedown.FileChooserDialog.FileSelectedListener;
+import fr.enst.infsi351.notedown.util.RecentItem;
+import fr.enst.infsi351.notedown.util.RecentListAdapter;
 import fr.enst.infsi351.notedown.util.SystemUiHider;
 import fr.enst.infsi351.notedown.util.TakeNoteSession;
 
@@ -24,6 +31,28 @@ public class MainMenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        ListView list = (ListView) findViewById(R.id.recent_sessions);
+        final List<RecentItem> recent_list = new ArrayList<>();
+        SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            recent_list.add(new RecentItem("MAT311", f.parse("15-06-2011")));
+            recent_list.add(new RecentItem("INFSI351", f.parse("13-04-2015")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        RecentListAdapter arrayAdapter = new RecentListAdapter(this, recent_list);
+        // This is the array adapter, it takes the context of the activity as a
+        // first parameter, the type of list view as a second parameter and your
+        // array as a third parameter.
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+//                this,
+//                android.R.layout.simple_list_item_1,
+//                your_array_list );
+
+
+        list.setAdapter(arrayAdapter);
     }
 
 

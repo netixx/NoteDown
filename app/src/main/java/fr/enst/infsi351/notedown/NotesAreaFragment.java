@@ -24,7 +24,7 @@ import java.util.ArrayList;
 // */
 public class NotesAreaFragment extends Fragment {
     private int layout;
-    private int INTER_NOTES_MARGIN = 0;
+//    private int INTER_NOTES_MARGIN = 0;
 
     public int getCurrentPage() {
         return current_page;
@@ -51,7 +51,7 @@ public class NotesAreaFragment extends Fragment {
 
         createPage();
         current_page = 0;
-        INTER_NOTES_MARGIN = getResources().getDimensionPixelSize(R.dimen.notes_inter_margin);
+//        INTER_NOTES_MARGIN = getResources().getDimensionPixelSize(R.dimen.notes_inter_margin);
 
         // Inflate the layout for this fragment
         layout = R.layout.fragment_notes_area;
