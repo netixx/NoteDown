@@ -15,5 +15,6 @@
     <dimen name="note_side_menu_padding_folded">-25dp</dimen>
     <dimen name="note_side_menu_button">25dp</dimen>
     <dimen name="note_side_menu_suggestion_width">10dp</dimen>
+    <dimen name="note_side_menu_top_bottom_padding">3dp</dimen>
     <dimen name="note_corner">8dp</dimen>
 </resources>

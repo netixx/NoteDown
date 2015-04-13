@@ -63,6 +63,7 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         //controls related callbacks
         Button b = (Button) this.findViewById(R.id.button_close);
         b.setOnClickListener(this);
+        controls.setOnFocusChangeListener(this);
 
     }
 
@@ -112,9 +113,18 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         if (hasFocus) {
             //increase left padding here
 //            controls
+            v.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_full),
+                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
+                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
+                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
         } else {
             //decrease left padding here
 //            controls
+            v.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_folded),
+                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
+                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
+                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
         }
     }
+
 }

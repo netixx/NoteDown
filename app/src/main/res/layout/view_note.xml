@@ -70,15 +70,18 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:background="@drawable/note_menu_bg"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
+        android:paddingTop="@dimen/note_side_menu_top_bottom_padding"
+        android:paddingBottom="@dimen/note_side_menu_top_bottom_padding"
         android:layout_width="wrap_content"
         android:layout_gravity="top|right"
         android:gravity="top|right"
         android:layout_marginTop="@dimen/note_corner"
         android:paddingRight="@dimen/note_side_menu_suggestion_width"
         android:paddingLeft="@dimen/note_side_menu_padding_folded"
-        android:id="@+id/note_controls">
+        android:id="@+id/note_controls"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:nestedScrollingEnabled="false">
 
         <Button
             style="?android:attr/buttonStyleSmall"
