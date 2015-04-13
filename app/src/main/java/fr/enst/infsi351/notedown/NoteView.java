@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -17,13 +18,14 @@ import android.widget.FrameLayout;
 // * Use the {@link NoteFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class NoteView extends FrameLayout implements OnTouchListener, View.OnClickListener {
+public class NoteView extends FrameLayout implements OnTouchListener, View.OnClickListener, OnFocusChangeListener {
 
     public int minWidth;
     public int minHeight;
 
     private NotesAreaFragment parent;
 
+    private View controls;
     public NoteView(Context context, NotesAreaFragment parent) {
         super(context);
         init(parent);
@@ -36,6 +38,7 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         inflate(getContext(), R.layout.view_note, this);
         final View title = findViewById(R.id.title);
         final View content = findViewById(R.id.content);
+        controls = findViewById(R.id.note_controls);
 //        this.setNextFocusDownId(R.id.title);
 
         title.setOnKeyListener(new OnKeyListener() {
@@ -104,4 +107,14 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         }
     }
 
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            //increase left padding here
+//            controls
+        } else {
+            //decrease left padding here
+//            controls
+        }
+    }
 }

@@ -8,7 +8,8 @@
     android:measureWithLargestChild="false"
               android:minHeight="@dimen/note_min_height"
               android:minWidth="@dimen/note_min_width"
-              android:id="@+id/note_root">
+              android:id="@+id/note_root"
+    android:gravity="top">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -63,34 +64,38 @@
             android:textSize="16sp"
             android:background="#00FFFFFF" />
     </LinearLayout>
-
+    
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:background="@drawable/note_menu_bg"
-        android:layout_marginLeft="3dp"
-        android:paddingTop="2dp"
+        android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="top|right"
+        android:gravity="top|right"
+        android:layout_marginTop="@dimen/note_corner"
+        android:paddingRight="@dimen/note_side_menu_suggestion_width"
+        android:paddingLeft="@dimen/note_side_menu_padding_folded"
         android:id="@+id/note_controls">
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:id="@+id/button_close"
             android:background="@android:drawable/ic_menu_close_clear_cancel"
-            android:layout_width="@dimen/note_menu"
-            android:layout_height="@dimen/note_menu" />
+            android:layout_width="@dimen/note_side_menu_button"
+            android:layout_height="@dimen/note_side_menu_button" />
         <Button
             style="?android:attr/buttonStyleSmall"
             android:background="@android:drawable/ic_menu_add"
-            android:layout_width="@dimen/note_menu"
-            android:layout_height="@dimen/note_menu" />
+            android:layout_width="@dimen/note_side_menu_button"
+            android:layout_height="@dimen/note_side_menu_button" />
         <Button
             style="?android:attr/buttonStyleSmall"
             android:background="@android:drawable/ic_menu_edit"
-            android:layout_width="@dimen/note_menu"
-            android:layout_height="@dimen/note_menu" />
+            android:layout_width="@dimen/note_side_menu_button"
+            android:layout_height="@dimen/note_side_menu_button" />
 
     </LinearLayout>
 

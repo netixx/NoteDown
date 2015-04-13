@@ -1,13 +1,13 @@
 package fr.enst.infsi351.notedown;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
 import fr.enst.infsi351.notedown.ControlsFragment.OnNextClick;
 import fr.enst.infsi351.notedown.ControlsFragment.OnPreviousClick;
 
 
-public class CutActivity extends ActionBarActivity {
+public class CutActivity extends Activity {
 
     PdfRendererFragment pdf;
     ControlsFragment controls;

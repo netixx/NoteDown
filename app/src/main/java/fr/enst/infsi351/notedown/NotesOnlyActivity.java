@@ -1,7 +1,7 @@
 package fr.enst.infsi351.notedown;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -9,9 +9,10 @@ import fr.enst.infsi351.notedown.ControlsFragment.OnNextClick;
 import fr.enst.infsi351.notedown.ControlsFragment.OnPreviousClick;
 
 
-public class NotesOnlyActivity extends ActionBarActivity {
+public class NotesOnlyActivity extends Activity{
     NotesAreaFragment notes;
     ControlsFragment controls;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,4 +66,6 @@ public class NotesOnlyActivity extends ActionBarActivity {
             controls.setPreviousEnabled(true);
         }
     }
+
+
 }
