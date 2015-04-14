@@ -83,12 +83,12 @@
         android:focusableInTouchMode="true"
         android:nestedScrollingEnabled="false">
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:id="@+id/button_close"
-            android:background="@android:drawable/ic_menu_close_clear_cancel"
-            android:layout_width="@dimen/note_side_menu_button"
-            android:layout_height="@dimen/note_side_menu_button" />
+        <!--<Button-->
+            <!--style="?android:attr/buttonStyleSmall"-->
+            <!--android:id="@+id/button_close"-->
+            <!--android:background="@android:drawable/ic_menu_close_clear_cancel"-->
+            <!--android:layout_width="@dimen/note_side_menu_button"-->
+            <!--android:layout_height="@dimen/note_side_menu_button" />-->
         <Button
             style="?android:attr/buttonStyleSmall"
             android:background="@android:drawable/ic_menu_add"

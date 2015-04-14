@@ -17,4 +17,6 @@
     <dimen name="note_side_menu_suggestion_width">10dp</dimen>
     <dimen name="note_side_menu_top_bottom_padding">3dp</dimen>
     <dimen name="note_corner">8dp</dimen>
+    <dimen name="trash_full_width">75dp</dimen>
+    <dimen name="trash_folded_width">0dp</dimen>
 </resources>

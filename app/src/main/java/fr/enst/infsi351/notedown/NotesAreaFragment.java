@@ -3,15 +3,19 @@ package fr.enst.infsi351.notedown;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnDragListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 
 import java.util.ArrayList;
+
+import fr.enst.infsi351.notedown.animation.WidthAnimation;
 
 
 ///**
@@ -22,7 +26,8 @@ import java.util.ArrayList;
 // * Use the {@link NotesAreaFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class NotesAreaFragment extends Fragment {
+public class NotesAreaFragment extends Fragment implements OnDragListener {
+    public static final int TRASH_OPEN_DURATION_MILLIS = 200;
     private int layout;
 //    private int INTER_NOTES_MARGIN = 0;
 
@@ -32,6 +37,7 @@ public class NotesAreaFragment extends Fragment {
 
     private int current_page = 0;
     private ViewGroup area;
+    private ViewGroup trash;
 
     private ArrayList<ArrayList<NoteView>> pages = new ArrayList<>();
 
@@ -57,6 +63,7 @@ public class NotesAreaFragment extends Fragment {
         layout = R.layout.fragment_notes_area;
         View v = inflater.inflate(layout, container, false);
         area = (ViewGroup) v.findViewById(R.id.notes_area);
+        trash = (ViewGroup) v.findViewById(R.id.notes_trash);
         v.setOnTouchListener(
                 new OnTouchListener() {
                     @Override
@@ -88,7 +95,9 @@ public class NotesAreaFragment extends Fragment {
                     }
                 }
         );
+        area.setOnDragListener(this);
 
+        trash.setOnDragListener(new TrashDrag());
 
         return v;
     }
@@ -205,5 +214,80 @@ public class NotesAreaFragment extends Fragment {
 
     public void invalidate() {
         area.invalidate();
+    }
+
+    private class TrashDrag implements OnDragListener {
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    //open trash panel
+                    WidthAnimation wao = new WidthAnimation(trash, getResources().getDimensionPixelSize(R.dimen.trash_full_width));
+                    wao.setDuration(TRASH_OPEN_DURATION_MILLIS);
+                    trash.startAnimation(wao);
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    v.setBackgroundColor(getResources().getColor(R.color.trash_hover_color));
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    v.setBackgroundColor(getResources().getColor(R.color.trash_normal_color));
+                    break;
+                case DragEvent.ACTION_DROP:
+                    // Dropped, reassign remove Note
+                    NoteView tv = (NoteView) event.getLocalState();
+                    NotesAreaFragment.this.removeDisplayedNote(tv);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    v.setBackgroundColor(getResources().getColor(R.color.trash_normal_color));
+                    //open trash panel
+                    WidthAnimation wac = new WidthAnimation(trash, getResources().getDimensionPixelSize(R.dimen.trash_folded_width));
+                    wac.setDuration(TRASH_OPEN_DURATION_MILLIS);
+                    trash.startAnimation(wac);
+                default:
+                    break;
+            }
+            return true;
+        }
+    }
+    private int _offsetx;
+    private int _offsety;
+
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+        //TODO : fix offset and visibility
+        switch (event.getAction()) {
+            case DragEvent.ACTION_DRAG_STARTED:
+                NoteView otv = (NoteView) event.getLocalState();
+                FrameLayout.LayoutParams oLayoutParams = (FrameLayout.LayoutParams) otv.getLayoutParams();
+                _offsetx = oLayoutParams.leftMargin - (int) event.getX();
+                _offsety = oLayoutParams.topMargin - (int) event.getY();
+//                otv.setVisibility(View.INVISIBLE);
+//                otv.invalidate();
+                break;
+            case DragEvent.ACTION_DRAG_ENTERED:
+//                    v.setBackground(enterShape);
+                System.out.println("drag entered");
+                break;
+            case DragEvent.ACTION_DRAG_EXITED:
+//                    v.setBackground(normalShape);
+                System.out.println("drag exited");
+                break;
+            case DragEvent.ACTION_DROP:
+                System.out.println("drag dropped");
+                NoteView tv = (NoteView) event.getLocalState();
+                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) tv.getLayoutParams();
+                layoutParams.setMargins((int) event.getX() + _offsetx,(int) event.getY() + _offsety , 0, 0);
+                tv.setLayoutParams(layoutParams);
+//                tv.setVisibility(View.VISIBLE);
+//                tv.invalidate();
+                break;
+            case DragEvent.ACTION_DRAG_ENDED:
+                System.out.println("drag ended");
+//                    v.setBackground(normalShape);
+            default:
+                break;
+        }
+        return true;
     }
 }

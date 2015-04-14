@@ -1,9 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="fr.enst.infsi351.notedown.NotesAreaFragment"
-             android:id="@+id/notes_area">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="fr.enst.infsi351.notedown.NotesAreaFragment"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false">
+
+    <FrameLayout
+         android:layout_height="match_parent"
+         android:layout_width="0dp"
+         android:layout_weight="1"
+         android:id="@+id/notes_area">
 
     <!--<view-->
         <!--android:layout_width="fill_parent"-->
@@ -11,4 +19,23 @@
         <!--class="fr.enst.infsi351.notedown.util.ClickView"-->
         <!--android:id="@+id/clickview"-->
         <!--/>-->
-</FrameLayout>
+
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="@dimen/trash_folded_width"
+        android:layout_height="match_parent"
+        android:id="@+id/notes_trash"
+        android:background="@color/trash_normal_color"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/ic_menu_delete"
+            android:contentDescription="trash"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+</LinearLayout>
