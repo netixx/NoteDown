@@ -2,19 +2,30 @@ package fr.enst.infsi351.notedown.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 import java.io.File;
+import java.util.HashMap;
 
+import fr.enst.infsi351.notedown.NoteView;
+import fr.enst.infsi351.notedown.PdfMarker;
 import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.fragment.ControlsFragment;
 import fr.enst.infsi351.notedown.fragment.ControlsFragment.OnNextClick;
 import fr.enst.infsi351.notedown.fragment.ControlsFragment.OnPreviousClick;
 import fr.enst.infsi351.notedown.fragment.NotesAreaFragment;
+import fr.enst.infsi351.notedown.fragment.NotesAreaFragment.OnNoteDeleteListener;
 import fr.enst.infsi351.notedown.fragment.PdfRendererFragment;
 import fr.enst.infsi351.notedown.util.TakeNoteSession;
 
 
 public class SideBySideActivity extends Activity {
+
+    private HashMap<NoteView, PdfMarker> noteMarkerMap = new HashMap<>();
+    private HashMap<PdfMarker, NoteView> markerNoteMap = new HashMap<>();
+
 
 //    public Bundle session;
     PdfRendererFragment pdf;
@@ -51,6 +62,39 @@ public class SideBySideActivity extends Activity {
             }
         });
         checkUi();
+
+        notes.setOnNoteDeleteListener(new OnNoteDeleteListener() {
+            @Override
+            public void noteDeleted(NoteView note) {
+                if (noteMarkerMap.containsKey(note)) {
+                    pdf.removeMarkerFromCurrentPage(noteMarkerMap.get(note));
+                }
+            }
+        });
+
+        View pdfArea = findViewById(R.id.pdf_frame);
+        pdfArea.setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int color = getResources().getColor(R.color.trash_hover_color);
+                NoteView note = notes.addNewNote(event.getX(), event.getY());
+                PdfMarker marker = new PdfMarker(v.getContext(), (int) event.getX(), (int) event.getY());
+                note.setBackgroundColor(color);
+                marker.setColor(color);
+                pdf.addMarkerToCurrentPage(marker);
+                noteMarkerMap.put(note, marker);
+                markerNoteMap.put(marker, note);
+                marker.setOnTouchListener(new OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        markerNoteMap.get(v).requestFocus();
+                        return true;
+                    }
+                });
+                return false;
+            }
+        });
     }
 
     public void checkUi() {

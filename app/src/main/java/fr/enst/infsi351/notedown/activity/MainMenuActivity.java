@@ -17,7 +17,6 @@ import fr.enst.infsi351.notedown.FileChooserDialog.FileSelectedListener;
 import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.util.RecentItem;
 import fr.enst.infsi351.notedown.util.RecentListAdapter;
-import fr.enst.infsi351.notedown.util.SystemUiHider;
 import fr.enst.infsi351.notedown.util.TakeNoteSession;
 
 
@@ -25,7 +24,6 @@ import fr.enst.infsi351.notedown.util.TakeNoteSession;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  *
- * @see SystemUiHider
  */
 public class MainMenuActivity extends Activity {
 

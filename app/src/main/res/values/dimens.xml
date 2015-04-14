@@ -19,4 +19,7 @@
     <dimen name="note_corner">8dp</dimen>
     <dimen name="trash_full_width">75dp</dimen>
     <dimen name="trash_folded_width">0dp</dimen>
+    <dimen name="pdf_marker_width">20dp</dimen>
+    <dimen name="pdf_marker_height">20dp</dimen>
+    <dimen name="pdf_marker_padding">3dp</dimen>
 </resources>

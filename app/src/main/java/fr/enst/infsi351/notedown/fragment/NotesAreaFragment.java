@@ -31,6 +31,13 @@ import fr.enst.infsi351.notedown.animation.WidthAnimation;
 public class NotesAreaFragment extends Fragment implements OnDragListener {
     public static final int TRASH_OPEN_DURATION_MILLIS = 200;
     private int layout;
+    private OnNoteDeleteListener onNoteDeleteListener;
+
+
+    public interface OnNoteDeleteListener {
+        void noteDeleted(NoteView note);
+    }
+
 //    private int INTER_NOTES_MARGIN = 0;
 
     public int getCurrentPage() {
@@ -89,7 +96,7 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
 //                                    }
 //                                };
 //                                t.execute();
-                                addNewNote(pages.get(current_page), event.getX(), event.getY());
+                                addNewNote(event.getX(), event.getY());
                             default:
 
                         }
@@ -130,13 +137,18 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
         pages.add(new ArrayList<NoteView>());
     }
 
-    public void addNewNote(final ArrayList<NoteView> page, final float x, final float y) {
+    public NoteView addNewNoteToPage(final ArrayList<NoteView> page, final float x, final float y) {
         final NoteView note = new NoteView(this.getActivity(), this);
         //hide and add view to get height and width
         FrameLayout.LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
         params.setMargins((int) x , (int) y, 0, 0);
         area.addView(note, params);
         page.add(note);
+        return note;
+    }
+
+    public NoteView addNewNote(final float x, final float y) {
+        return addNewNoteToPage(pages.get(current_page), x, y);
     }
 
 //    public void addNewNote(final ArrayList<NoteView> page, final float x, final float y) {
@@ -212,6 +224,9 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
     public void removeDisplayedNote(NoteView v) {
         pages.get(current_page).remove(v);
         area.removeView(v);
+        if (onNoteDeleteListener != null) {
+            onNoteDeleteListener.noteDeleted(v);
+        }
     }
 
     public void invalidate() {
@@ -291,5 +306,10 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
                 break;
         }
         return true;
+    }
+
+
+    public void setOnNoteDeleteListener(OnNoteDeleteListener l) {
+        this.onNoteDeleteListener = l;
     }
 }

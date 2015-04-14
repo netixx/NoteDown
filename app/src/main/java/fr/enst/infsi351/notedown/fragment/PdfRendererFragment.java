@@ -25,7 +25,11 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import fr.enst.infsi351.notedown.PdfMarker;
 import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.util.PdfEngine;
 import fr.enst.infsi351.notedown.util.TakeNoteSession;
@@ -38,6 +42,7 @@ import fr.enst.infsi351.notedown.util.TakeNoteSession;
  */
 public class PdfRendererFragment extends Fragment {
 
+    private Map<Integer, List<PdfMarker>> markers = new HashMap<>();
     /**
      * Key string for saving the state of current page index.
      */
@@ -48,6 +53,7 @@ public class PdfRendererFragment extends Fragment {
      */
     protected ImageView mImageView;
 
+    private ViewGroup frame;
     private PdfEngine engine;
 
     public PdfRendererFragment() {
@@ -65,6 +71,7 @@ public class PdfRendererFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // Retain view references.
         mImageView = (ImageView) view.findViewById(R.id.image);
+        frame = (ViewGroup) view.findViewById(R.id.pdf_frame);
 //        mButtonPrevious = (Button) view.findViewById(R.id.previous);
 //        mButtonNext = (Button) view.findViewById(R.id.next);
 //        // Bind events.
@@ -112,10 +119,20 @@ public class PdfRendererFragment extends Fragment {
 
     public void showNextPage() {
         engine.showPage(engine.getCurrentPage().getIndex() + 1, mImageView);
+        renderMarkers(engine.getCurrentPage().getIndex() + 1);
     }
 
     public void showPreviousPage() {
         engine.showPage(engine.getCurrentPage().getIndex() - 1, mImageView);
+        renderMarkers(engine.getCurrentPage().getIndex() - 1);
+    }
+
+    public void renderMarkers(int index) {
+        if (markers.containsKey(index)) {
+            for (PdfMarker m : markers.get(index)) {
+                frame.addView(m);
+            }
+        }
     }
 
     public int getCurrentPageIndex() {
@@ -126,4 +143,20 @@ public class PdfRendererFragment extends Fragment {
         return engine.getPageCount();
     }
 
+
+    public void addMarkerToCurrentPage(PdfMarker m) {
+        int index = engine.getCurrentPage().getIndex();
+        if (markers.containsKey(index)) {
+            markers.get(index).add(m);
+        }
+        frame.addView(m);
+    }
+
+    public void removeMarkerFromCurrentPage(PdfMarker m) {
+        int index = engine.getCurrentPage().getIndex();
+        if (markers.containsKey(index)) {
+            markers.get(index).remove(m);
+        }
+        frame.removeView(m);
+    }
 }

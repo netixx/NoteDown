@@ -16,7 +16,7 @@ public class SideBySidePdfRendererFragment extends PdfRendererFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
-        final ViewGroup imageFrame = (ViewGroup) view.findViewById(R.id.image_frame);
+        final ViewGroup imageFrame = (ViewGroup) view.findViewById(R.id.pdf_frame);
         mImageView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

@@ -54,14 +54,24 @@ public class PdfEngine {
         mFileDescriptor.close();
     }
 
+
     /**
      * Shows the specified page of PDF to the screen.
      *
      * @param index The page index.
      */
     public void showPage(int index, ImageView mImageView) {
+        if (prepareRender(index)) {
+            Bitmap bitmap = newBitmap();
+            renderPage(bitmap, index);
+            // We are ready to show the Bitmap to user.
+            mImageView.setImageBitmap(bitmap);
+        }
+    }
+
+    public boolean prepareRender(int index) {
         if (mPdfRenderer.getPageCount() <= index) {
-            return;
+            return false;
         }
         // Make sure to close the current page before opening another one.
         if (null != mCurrentPage) {
@@ -69,16 +79,20 @@ public class PdfEngine {
         }
         // Use `openPage` to open a specific page in PDF.
         mCurrentPage = mPdfRenderer.openPage(index);
-        // Important: the destination bitmap must be ARGB (not RGB).
-        Bitmap bitmap = Bitmap.createBitmap(mCurrentPage.getWidth(), mCurrentPage.getHeight(),
-                Bitmap.Config.ARGB_8888);
+        return true;
+    }
+    public void renderPage(Bitmap bitmap, int index) {
         // Here, we render the page onto the Bitmap.
         // To render a portion of the page, use the second and third parameter. Pass nulls to get
         // the default result.
         // Pass either RENDER_MODE_FOR_DISPLAY or RENDER_MODE_FOR_PRINT for the last parameter.
         mCurrentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-        // We are ready to show the Bitmap to user.
-        mImageView.setImageBitmap(bitmap);
+    }
+
+    public Bitmap newBitmap() {
+        // Important: the destination bitmap must be ARGB (not RGB).
+        return Bitmap.createBitmap(mCurrentPage.getWidth(), mCurrentPage.getHeight(),
+                Bitmap.Config.ARGB_8888);
     }
 
     /**
