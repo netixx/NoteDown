@@ -1,10 +1,12 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.fragment;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+
+import fr.enst.infsi351.notedown.R;
 
 /**
  * Created by francois on 03/04/15.

@@ -1,4 +1,4 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import fr.enst.infsi351.notedown.R;
 
 /**
  * Created by francois on 03/04/15.

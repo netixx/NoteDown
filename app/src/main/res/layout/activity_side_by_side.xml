@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="fr.enst.infsi351.notedown.SideBySideActivity"
+                tools:context="fr.enst.infsi351.notedown.activity.SideBySideActivity"
                 android:background="@color/default_background"
                 android:orientation="vertical">
     <LinearLayout
@@ -12,14 +12,14 @@
         android:orientation="horizontal"
         android:baselineAligned="false">
 
-        <fragment android:name="fr.enst.infsi351.notedown.SideBySidePdfRendererFragment"
+        <fragment android:name="fr.enst.infsi351.notedown.fragment.SideBySidePdfRendererFragment"
                   android:id="@+id/pdf"
                   android:layout_weight="1"
                   android:layout_width="0dp"
                   android:layout_height="match_parent"
             tools:layout="@layout/fragment_pdf_renderer" />
 
-        <fragment android:name="fr.enst.infsi351.notedown.NotesAreaFragment"
+        <fragment android:name="fr.enst.infsi351.notedown.fragment.NotesAreaFragment"
                   android:id="@+id/notes"
                   android:layout_weight="1"
                   android:layout_width="0dp"
@@ -27,7 +27,7 @@
             tools:layout="@layout/fragment_notes_area" />
 
     </LinearLayout>
-    <fragment android:name="fr.enst.infsi351.notedown.ControlsFragment"
+    <fragment android:name="fr.enst.infsi351.notedown.fragment.ControlsFragment"
               android:id="@+id/controls"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"

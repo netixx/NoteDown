@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="fr.enst.infsi351.notedown.CutActivity"
+                tools:context="fr.enst.infsi351.notedown.activity.CutActivity"
                 android:background="@color/default_background"
                 android:orientation="vertical">
 
@@ -11,10 +11,10 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/pdf"
-        android:name="fr.enst.infsi351.notedown.CutPdfRendererFragment"
+        android:name="fr.enst.infsi351.notedown.fragment.CutPdfRendererFragment"
         tools:layout="@layout/fragment_pdf_renderer"/>
 
-    <fragment android:name="fr.enst.infsi351.notedown.ControlsFragment"
+    <fragment android:name="fr.enst.infsi351.notedown.fragment.ControlsFragment"
               android:id="@+id/controls"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"

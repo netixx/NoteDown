@@ -1,4 +1,4 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -15,6 +15,8 @@ import android.widget.FrameLayout.LayoutParams;
 
 import java.util.ArrayList;
 
+import fr.enst.infsi351.notedown.NoteView;
+import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.animation.WidthAnimation;
 
 

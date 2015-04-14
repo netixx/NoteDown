@@ -1,4 +1,4 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import fr.enst.infsi351.notedown.R;
 
 
 ///**
@@ -23,11 +25,11 @@ public class ControlsFragment extends Fragment {
     private View prevButton;
     private View nextButton;
 
-    interface OnNextClick{
+    public interface OnNextClick{
         void onClick();
     }
 
-    interface OnPreviousClick {
+    public interface OnPreviousClick {
         void onClick();
     }
 

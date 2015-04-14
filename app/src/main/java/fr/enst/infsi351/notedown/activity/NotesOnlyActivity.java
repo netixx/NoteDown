@@ -1,12 +1,15 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import fr.enst.infsi351.notedown.ControlsFragment.OnNextClick;
-import fr.enst.infsi351.notedown.ControlsFragment.OnPreviousClick;
+import fr.enst.infsi351.notedown.R;
+import fr.enst.infsi351.notedown.fragment.ControlsFragment;
+import fr.enst.infsi351.notedown.fragment.ControlsFragment.OnNextClick;
+import fr.enst.infsi351.notedown.fragment.ControlsFragment.OnPreviousClick;
+import fr.enst.infsi351.notedown.fragment.NotesAreaFragment;
 
 
 public class NotesOnlyActivity extends Activity{

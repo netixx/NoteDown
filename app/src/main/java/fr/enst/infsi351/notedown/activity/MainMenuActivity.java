@@ -1,4 +1,4 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.enst.infsi351.notedown.FileChooserDialog;
 import fr.enst.infsi351.notedown.FileChooserDialog.FileSelectedListener;
+import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.util.RecentItem;
 import fr.enst.infsi351.notedown.util.RecentListAdapter;
 import fr.enst.infsi351.notedown.util.SystemUiHider;

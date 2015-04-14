@@ -1,4 +1,4 @@
-package fr.enst.infsi351.notedown;/*
+package fr.enst.infsi351.notedown.fragment;/*
  * Copyright (C) 2014 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +26,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.util.PdfEngine;
 import fr.enst.infsi351.notedown.util.TakeNoteSession;
 

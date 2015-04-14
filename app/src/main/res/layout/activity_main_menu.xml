@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:background="#0099cc"
               android:orientation="vertical"
-              tools:context="fr.enst.infsi351.notedown.MainMenuActivity">
+              tools:context="fr.enst.infsi351.notedown.activity.MainMenuActivity">
 
     <TextView
         android:layout_width="match_parent"
