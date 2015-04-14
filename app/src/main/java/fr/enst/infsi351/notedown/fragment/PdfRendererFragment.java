@@ -25,12 +25,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import fr.enst.infsi351.notedown.PdfMarker;
 import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.util.PdfEngine;
 import fr.enst.infsi351.notedown.util.TakeNoteSession;
@@ -43,7 +38,7 @@ import fr.enst.infsi351.notedown.util.TakeNoteSession;
  */
 public class PdfRendererFragment extends Fragment {
 
-    private Map<Integer, List<PdfMarker>> markers = new HashMap<>();
+
     /**
      * Key string for saving the state of current page index.
      */
@@ -54,8 +49,7 @@ public class PdfRendererFragment extends Fragment {
      */
     protected ImageView mImageView;
 
-    private ViewGroup frame;
-    private PdfEngine engine;
+    protected PdfEngine engine;
 
     public PdfRendererFragment() {
         engine = new PdfEngine();
@@ -72,7 +66,6 @@ public class PdfRendererFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // Retain view references.
         mImageView = (ImageView) view.findViewById(R.id.image);
-        frame = (ViewGroup) view.findViewById(R.id.pdf_frame);
 //        mButtonPrevious = (Button) view.findViewById(R.id.previous);
 //        mButtonNext = (Button) view.findViewById(R.id.next);
 //        // Bind events.
@@ -126,27 +119,10 @@ public class PdfRendererFragment extends Fragment {
         showPage(engine.getCurrentPage().getIndex(), -1);
     }
 
-    private void showPage(int currentPage, int move) {
-        clearMarkers(currentPage);
-        engine.showPage(currentPage+move, mImageView);
-        renderMarkers(currentPage + move);
+    protected void showPage(int currentPage, int move) {
+        engine.showPage(currentPage + move, mImageView);
     }
 
-    private void clearMarkers(int currentPage) {
-        if (markers.containsKey(currentPage)) {
-            for (PdfMarker m : markers.get(currentPage)) {
-                frame.removeView(m);
-            }
-        }
-    }
-
-    public void renderMarkers(int index) {
-        if (markers.containsKey(index)) {
-            for (PdfMarker m : markers.get(index)) {
-                frame.addView(m);
-            }
-        }
-    }
 
     public int getCurrentPageIndex() {
         return engine.getCurrentPage().getIndex();
@@ -154,24 +130,6 @@ public class PdfRendererFragment extends Fragment {
 
     public int getPageCount() {
         return engine.getPageCount();
-    }
-
-
-    public void addMarkerToCurrentPage(PdfMarker m) {
-        int index = engine.getCurrentPage().getIndex();
-        if (! markers.containsKey(index)) {
-            markers.put(index, new ArrayList<PdfMarker>());
-        }
-        markers.get(index).add(m);
-        frame.addView(m);
-    }
-
-    public void removeMarkerFromCurrentPage(PdfMarker m) {
-        int index = engine.getCurrentPage().getIndex();
-        if (markers.containsKey(index)) {
-            markers.get(index).remove(m);
-        }
-        frame.removeView(m);
     }
 
 }

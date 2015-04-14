@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 
 import java.io.File;
-import java.util.HashMap;
 
 import fr.enst.infsi351.notedown.NoteView;
 import fr.enst.infsi351.notedown.PdfMarker;
@@ -17,18 +16,21 @@ import fr.enst.infsi351.notedown.fragment.ControlsFragment.OnNextClick;
 import fr.enst.infsi351.notedown.fragment.ControlsFragment.OnPreviousClick;
 import fr.enst.infsi351.notedown.fragment.NotesAreaFragment;
 import fr.enst.infsi351.notedown.fragment.NotesAreaFragment.OnNoteDeleteListener;
-import fr.enst.infsi351.notedown.fragment.PdfRendererFragment;
+import fr.enst.infsi351.notedown.fragment.SideBySidePdfRendererFragment;
+import fr.enst.infsi351.notedown.util.BiMap;
 import fr.enst.infsi351.notedown.util.TakeNoteSession;
 
 
 public class SideBySideActivity extends Activity {
 
-    private HashMap<NoteView, PdfMarker> noteMarkerMap = new HashMap<>();
-    private HashMap<PdfMarker, NoteView> markerNoteMap = new HashMap<>();
+    private BiMap<NoteView, PdfMarker> noteMarkerBiMap = new BiMap<>();
+
+//    private HashMap<NoteView, PdfMarker> noteMarkerMap = new HashMap<>();
+//    private HashMap<PdfMarker, NoteView> markerNoteMap = new HashMap<>();
 
 
 //    public Bundle session;
-    PdfRendererFragment pdf;
+    SideBySidePdfRendererFragment pdf;
     NotesAreaFragment notes;
     ControlsFragment controls;
 
@@ -40,8 +42,7 @@ public class SideBySideActivity extends Activity {
         String selectedPdf = this.getIntent().getStringExtra(TakeNoteSession.TARGET_PDF);
         targetPdf = new File(selectedPdf);
 
-
-        pdf = (PdfRendererFragment) getFragmentManager().findFragmentById(R.id.pdf);
+        pdf = (SideBySidePdfRendererFragment) getFragmentManager().findFragmentById(R.id.pdf);
         controls = (ControlsFragment) getFragmentManager().findFragmentById(R.id.controls);
         notes = (NotesAreaFragment) getFragmentManager().findFragmentById(R.id.notes);
 
@@ -66,12 +67,10 @@ public class SideBySideActivity extends Activity {
         notes.setOnNoteDeleteListener(new OnNoteDeleteListener() {
             @Override
             public void noteDeleted(NoteView note) {
-                if (noteMarkerMap.containsKey(note)) {
-                    pdf.removeMarkerFromCurrentPage(noteMarkerMap.get(note));
+                if (noteMarkerBiMap.containsKey(note)) {
+                    pdf.removeMarkerFromCurrentPage(noteMarkerBiMap.get(note));
                     //remove from maps
-                    markerNoteMap.remove(noteMarkerMap.get(note));
-                    //do this last !
-                    noteMarkerMap.remove(note);
+                    noteMarkerBiMap.remove(note);
                 }
             }
         });
@@ -87,12 +86,11 @@ public class SideBySideActivity extends Activity {
                 note.setIdentifyingColor(color);
                 marker.setIdentifyingColor(color);
                 pdf.addMarkerToCurrentPage(marker);
-                noteMarkerMap.put(note, marker);
-                markerNoteMap.put(marker, note);
+                noteMarkerBiMap.put(note, marker);
                 marker.setOnTouchListener(new OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        markerNoteMap.get(v).requestFocus();
+                        noteMarkerBiMap.reverseGet((PdfMarker) v).requestFocus();
                         return true;
                     }
                 });
