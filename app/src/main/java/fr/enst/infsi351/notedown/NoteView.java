@@ -13,6 +13,7 @@ import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 
+import fr.enst.infsi351.notedown.animation.PaddingAnimation;
 import fr.enst.infsi351.notedown.fragment.NotesAreaFragment;
 import fr.enst.infsi351.notedown.util.NoteShadowBuilder;
 
@@ -27,6 +28,7 @@ import fr.enst.infsi351.notedown.util.NoteShadowBuilder;
 // */
 public class NoteView extends FrameLayout implements OnTouchListener, View.OnClickListener, OnFocusChangeListener, OnLongClickListener {
 
+    public static final int CONTROLS_ANIMATE_DURATION_MILLIS = 100;
     public int minWidth;
     public int minHeight;
 
@@ -79,6 +81,7 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
 
         title.setOnFocusChangeListener(this);
         content.setOnFocusChangeListener(this);
+        expandControls();
     }
 
 
@@ -166,18 +169,38 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         if (hasFocus) {
             //increase left padding here
 //            controls
-            controls.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_full),
-                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
-                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
-                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
+            expandControls();
+//            controls.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_full),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
         } else {
+            collapseControls();
             //decrease left padding here
 //            controls
-            controls.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_folded),
-                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
-                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
-                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
+//            controls.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_folded),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
         }
+    }
+
+    private void collapseControls() {
+        PaddingAnimation pa = new PaddingAnimation(controls, new int[] {getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_folded),
+                getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
+                getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
+                getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding)});
+        pa.setDuration(CONTROLS_ANIMATE_DURATION_MILLIS);
+        controls.startAnimation(pa);
+    }
+
+    private void expandControls() {
+        PaddingAnimation pa = new PaddingAnimation(controls, new int[] {getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_full),
+                getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
+                getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
+                getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding)});
+        pa.setDuration(CONTROLS_ANIMATE_DURATION_MILLIS);
+        controls.startAnimation(pa);
     }
 
     public void setIdentifyingColor(int color) {
