@@ -25,7 +25,7 @@ public class ControlsFragment extends Fragment {
     private View prevButton;
     private View nextButton;
 
-    public interface OnNextClick{
+    public interface OnNextClick {
         void onClick();
     }
 
