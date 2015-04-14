@@ -18,15 +18,13 @@ import fr.enst.infsi351.notedown.fragment.NotesAreaFragment;
 import fr.enst.infsi351.notedown.fragment.NotesAreaFragment.OnNoteDeleteListener;
 import fr.enst.infsi351.notedown.fragment.SideBySidePdfRendererFragment;
 import fr.enst.infsi351.notedown.util.BiMap;
+import fr.enst.infsi351.notedown.util.ColorPicker;
 import fr.enst.infsi351.notedown.util.TakeNoteSession;
 
 
 public class SideBySideActivity extends Activity {
 
     private BiMap<NoteView, PdfMarker> noteMarkerBiMap = new BiMap<>();
-
-//    private HashMap<NoteView, PdfMarker> noteMarkerMap = new HashMap<>();
-//    private HashMap<PdfMarker, NoteView> markerNoteMap = new HashMap<>();
 
 
 //    public Bundle session;
@@ -80,9 +78,9 @@ public class SideBySideActivity extends Activity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                int color = getResources().getColor(R.color.trash_hover_color);
                 NoteView note = notes.addNewNote(event.getX(), event.getY());
                 PdfMarker marker = new PdfMarker(v.getContext(), (int) event.getX(), (int) event.getY());
+                int color = ColorPicker.nextColor();
                 note.setIdentifyingColor(color);
                 marker.setIdentifyingColor(color);
                 pdf.addMarkerToCurrentPage(marker);

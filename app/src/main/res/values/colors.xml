@@ -3,4 +3,5 @@
     <color name="default_background">#ff000000</color>
     <color name="trash_hover_color">@android:color/holo_red_light</color>
     <color name="trash_normal_color">@android:color/darker_gray</color>
+
 </resources>
