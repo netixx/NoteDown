@@ -3,6 +3,8 @@ package fr.enst.infsi351.notedown;
 import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,6 +33,7 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
     private NotesAreaFragment parent;
 
     private View controls;
+    private View text;
     public NoteView(Context context, NotesAreaFragment parent) {
         super(context);
         init(parent);
@@ -44,6 +47,7 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         final View title = findViewById(R.id.title);
         final View content = findViewById(R.id.content);
         controls = findViewById(R.id.note_controls);
+        text = findViewById(R.id.note_textedit);
 //        this.setNextFocusDownId(R.id.title);
 
         title.setOnKeyListener(new OnKeyListener() {
@@ -174,6 +178,12 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
                     getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
                     getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
         }
+    }
+
+    public void setIdentifyingColor(int color) {
+        Drawable d = getResources().getDrawable(R.drawable.note_bg);
+        d.setColorFilter(color, Mode.SRC_OVER);
+        text.setBackground(d);
     }
 
 }

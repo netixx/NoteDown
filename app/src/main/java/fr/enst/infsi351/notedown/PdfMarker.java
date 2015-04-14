@@ -24,7 +24,7 @@ public class PdfMarker extends FrameLayout {
         this.addView(innerMarker);
     }
 
-    public void setColor(int color) {
+    public void setIdentifyingColor(int color) {
         innerMarker.setBackgroundColor(color);
     }
 

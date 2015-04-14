@@ -19,6 +19,7 @@
         android:baselineAligned="false"
         android:isScrollContainer="false"
         android:padding="4dp"
+        android:id="@+id/note_textedit"
         android:soundEffectsEnabled="false"
         android:animationCache="false">
 

@@ -68,6 +68,10 @@ public class SideBySideActivity extends Activity {
             public void noteDeleted(NoteView note) {
                 if (noteMarkerMap.containsKey(note)) {
                     pdf.removeMarkerFromCurrentPage(noteMarkerMap.get(note));
+                    //remove from maps
+                    markerNoteMap.remove(noteMarkerMap.get(note));
+                    //do this last !
+                    noteMarkerMap.remove(note);
                 }
             }
         });
@@ -80,8 +84,8 @@ public class SideBySideActivity extends Activity {
                 int color = getResources().getColor(R.color.trash_hover_color);
                 NoteView note = notes.addNewNote(event.getX(), event.getY());
                 PdfMarker marker = new PdfMarker(v.getContext(), (int) event.getX(), (int) event.getY());
-                note.setBackgroundColor(color);
-                marker.setColor(color);
+                note.setIdentifyingColor(color);
+                marker.setIdentifyingColor(color);
                 pdf.addMarkerToCurrentPage(marker);
                 noteMarkerMap.put(note, marker);
                 markerNoteMap.put(marker, note);

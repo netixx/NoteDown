@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,13 +119,25 @@ public class PdfRendererFragment extends Fragment {
     }
 
     public void showNextPage() {
-        engine.showPage(engine.getCurrentPage().getIndex() + 1, mImageView);
-        renderMarkers(engine.getCurrentPage().getIndex() + 1);
+        showPage(engine.getCurrentPage().getIndex(), 1);
     }
 
     public void showPreviousPage() {
-        engine.showPage(engine.getCurrentPage().getIndex() - 1, mImageView);
-        renderMarkers(engine.getCurrentPage().getIndex() - 1);
+        showPage(engine.getCurrentPage().getIndex(), -1);
+    }
+
+    private void showPage(int currentPage, int move) {
+        clearMarkers(currentPage);
+        engine.showPage(currentPage+move, mImageView);
+        renderMarkers(currentPage + move);
+    }
+
+    private void clearMarkers(int currentPage) {
+        if (markers.containsKey(currentPage)) {
+            for (PdfMarker m : markers.get(currentPage)) {
+                frame.removeView(m);
+            }
+        }
     }
 
     public void renderMarkers(int index) {
@@ -146,9 +159,10 @@ public class PdfRendererFragment extends Fragment {
 
     public void addMarkerToCurrentPage(PdfMarker m) {
         int index = engine.getCurrentPage().getIndex();
-        if (markers.containsKey(index)) {
-            markers.get(index).add(m);
+        if (! markers.containsKey(index)) {
+            markers.put(index, new ArrayList<PdfMarker>());
         }
+        markers.get(index).add(m);
         frame.addView(m);
     }
 
@@ -159,4 +173,5 @@ public class PdfRendererFragment extends Fragment {
         }
         frame.removeView(m);
     }
+
 }
