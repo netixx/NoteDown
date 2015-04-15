@@ -274,11 +274,11 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
     public boolean onDrag(View v, DragEvent event) {
         switch (event.getAction()) {
             case DragEvent.ACTION_DRAG_STARTED:
-                System.out.println("drag started");
+//                System.out.println("drag started");
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
 //                    v.setBackground(enterShape);
-                System.out.println("drag entered");
+//                System.out.println("drag entered");
                 NoteView otv = (NoteView) event.getLocalState();
                 FrameLayout.LayoutParams oLayoutParams = (FrameLayout.LayoutParams) otv.getLayoutParams();
                 _offsetx = oLayoutParams.leftMargin - event.getX();
@@ -288,7 +288,7 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
 //                    v.setBackground(normalShape);
-                System.out.println("drag exited");
+//                System.out.println("drag exited");
                 break;
             case DragEvent.ACTION_DROP:
                 System.out.println("drag dropped");
@@ -300,7 +300,7 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
                 tv.invalidate();
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
-                System.out.println("drag ended");
+//                System.out.println("drag ended");
 //                    v.setBackground(normalShape);
             default:
                 break;

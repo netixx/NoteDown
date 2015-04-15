@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import fr.enst.infsi351.notedown.animation.PaddingAnimation;
@@ -36,6 +37,9 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
 
     private View controls;
     private View text;
+    private EditText title;
+    private EditText content;
+
     public NoteView(Context context, NotesAreaFragment parent) {
         super(context);
         init(parent);
@@ -46,8 +50,8 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         minHeight = (int) getResources().getDimension(R.dimen.note_min_height);
         this.parent = parent;
         inflate(getContext(), R.layout.view_note, this);
-        final View title = findViewById(R.id.title);
-        final View content = findViewById(R.id.content);
+        title = (EditText) findViewById(R.id.title);
+        content = (EditText) findViewById(R.id.content);
         controls = findViewById(R.id.note_controls);
         text = findViewById(R.id.note_textedit);
 //        this.setNextFocusDownId(R.id.title);
@@ -167,22 +171,21 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
-            //increase left padding here
-//            controls
             expandControls();
-//            controls.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_full),
-//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
-//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
-//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
+            expandView();
         } else {
             collapseControls();
-            //decrease left padding here
-//            controls
-//            controls.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_folded),
-//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
-//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
-//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
+            collapseView();
         }
+    }
+
+    public void collapseView() {
+        //collapse content to one line
+        content.setMaxHeight((int) content.getTextSize());
+    }
+
+    public void expandView() {
+        content.setMaxHeight(Integer.MAX_VALUE);
     }
 
     private void collapseControls() {
@@ -192,6 +195,10 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
                 getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding)});
         pa.setDuration(CONTROLS_ANIMATE_DURATION_MILLIS);
         controls.startAnimation(pa);
+//            controls.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_folded),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
     }
 
     private void expandControls() {
@@ -201,6 +208,11 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
                 getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding)});
         pa.setDuration(CONTROLS_ANIMATE_DURATION_MILLIS);
         controls.startAnimation(pa);
+//            controls.setPadding(getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_padding_full),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_suggestion_width),
+//                    getContext().getResources().getDimensionPixelSize(R.dimen.note_side_menu_top_bottom_padding));
+
     }
 
     public void setIdentifyingColor(int color) {
