@@ -30,6 +30,7 @@ import fr.enst.infsi351.notedown.util.NoteShadowBuilder;
 public class NoteView extends FrameLayout implements OnTouchListener, View.OnClickListener, OnFocusChangeListener, OnLongClickListener {
 
     public static final int CONTROLS_ANIMATE_DURATION_MILLIS = 100;
+    private static final int CONTENT_ANIMATE_DURATION_MILLIS = 100;
     public int minWidth;
     public int minHeight;
 
@@ -181,10 +182,17 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
 
     public void collapseView() {
         //collapse content to one line
+//        MaxHeightAnimation ha = new MaxHeightAnimation(content, (int) content.getTextSize());
+//        ha.setDuration(CONTENT_ANIMATE_DURATION_MILLIS);
+//        content.startAnimation(ha);
         content.setMaxHeight((int) content.getTextSize());
     }
 
     public void expandView() {
+//        int targetHeight = (int) (content.getLineCount() * content.getTextSize());
+//        MaxHeightAnimation ha = new MaxHeightAnimation(content, targetHeight);
+//        ha.setDuration(CONTENT_ANIMATE_DURATION_MILLIS);
+//        content.startAnimation(ha);
         content.setMaxHeight(Integer.MAX_VALUE);
     }
 
