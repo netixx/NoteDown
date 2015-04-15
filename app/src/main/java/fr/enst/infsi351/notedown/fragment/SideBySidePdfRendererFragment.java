@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.enst.infsi351.notedown.PdfMarker;
+import fr.enst.infsi351.notedown.view.PdfMarker;
 import fr.enst.infsi351.notedown.R;
 
 /**

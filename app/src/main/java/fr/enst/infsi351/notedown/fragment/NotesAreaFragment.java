@@ -15,7 +15,7 @@ import android.widget.FrameLayout.LayoutParams;
 
 import java.util.ArrayList;
 
-import fr.enst.infsi351.notedown.NoteView;
+import fr.enst.infsi351.notedown.view.NoteView;
 import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.animation.WidthAnimation;
 

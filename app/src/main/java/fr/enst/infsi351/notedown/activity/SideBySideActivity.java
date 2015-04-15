@@ -8,8 +8,8 @@ import android.view.View.OnTouchListener;
 
 import java.io.File;
 
-import fr.enst.infsi351.notedown.NoteView;
-import fr.enst.infsi351.notedown.PdfMarker;
+import fr.enst.infsi351.notedown.view.NoteView;
+import fr.enst.infsi351.notedown.view.PdfMarker;
 import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.fragment.ControlsFragment;
 import fr.enst.infsi351.notedown.fragment.ControlsFragment.OnNextClick;

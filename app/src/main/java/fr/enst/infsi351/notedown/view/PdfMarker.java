@@ -1,8 +1,10 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.view;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import fr.enst.infsi351.notedown.R;
 
 /**
  * Created by francois on 14/04/15.

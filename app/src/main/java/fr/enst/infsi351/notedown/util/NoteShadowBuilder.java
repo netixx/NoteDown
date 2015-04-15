@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.view.View;
 import android.view.View.DragShadowBuilder;
 
-import fr.enst.infsi351.notedown.NoteView;
+import fr.enst.infsi351.notedown.view.NoteView;
 
 /**
  * Created by francois on 14/04/15.

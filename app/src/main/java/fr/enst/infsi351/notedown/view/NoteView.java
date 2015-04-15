@@ -1,4 +1,4 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.view;
 
 import android.content.ClipData;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.animation.PaddingAnimation;
 import fr.enst.infsi351.notedown.fragment.NotesAreaFragment;
 import fr.enst.infsi351.notedown.util.NoteShadowBuilder;
