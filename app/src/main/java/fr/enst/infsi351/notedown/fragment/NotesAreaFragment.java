@@ -33,7 +33,6 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
     private int layout;
     private OnNoteDeleteListener onNoteDeleteListener;
 
-
     public interface OnNoteDeleteListener {
         void noteDeleted(NoteView note);
     }
@@ -283,6 +282,7 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
                 FrameLayout.LayoutParams oLayoutParams = (FrameLayout.LayoutParams) otv.getLayoutParams();
                 _offsetx = oLayoutParams.leftMargin - event.getX();
                 _offsety = oLayoutParams.topMargin - event.getY();
+//                otv.setOnDragListener(null);
                 otv.setVisibility(View.INVISIBLE);
                 otv.invalidate();
                 break;
@@ -291,23 +291,30 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
 //                System.out.println("drag exited");
                 break;
             case DragEvent.ACTION_DROP:
-                System.out.println("drag dropped");
-                NoteView tv = (NoteView) event.getLocalState();
-                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) tv.getLayoutParams();
-                layoutParams.setMargins((int) (event.getX() + _offsetx),(int) (event.getY() + _offsety), 0, 0);
-                tv.setLayoutParams(layoutParams);
-                tv.setVisibility(View.VISIBLE);
-                tv.invalidate();
+                this.dropDrag(event, event.getX(), event.getY());
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
 //                System.out.println("drag ended");
 //                    v.setBackground(normalShape);
+                NoteView tv = (NoteView) event.getLocalState();
+                tv.setVisibility(View.VISIBLE);
+                tv.invalidate();
+//                tv.setOnDragListener(tv);
             default:
                 break;
         }
         return true;
     }
 
+
+    public void dropDrag(DragEvent event, float x, float y) {
+        NoteView tv = (NoteView) event.getLocalState();
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) tv.getLayoutParams();
+        layoutParams.setMargins((int) (x + _offsetx),(int) (y + _offsety), 0, 0);
+        tv.setLayoutParams(layoutParams);
+        tv.setVisibility(View.VISIBLE);
+        tv.invalidate();
+    }
 
     public void setOnNoteDeleteListener(OnNoteDeleteListener l) {
         this.onNoteDeleteListener = l;

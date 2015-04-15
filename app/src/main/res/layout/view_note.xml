@@ -6,9 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:measureWithLargestChild="false"
-              android:minHeight="@dimen/note_min_height"
-              android:minWidth="@dimen/note_min_width"
-              android:id="@+id/note_root"
+    android:id="@+id/note_root"
     android:gravity="top">
 
     <LinearLayout
@@ -19,6 +17,7 @@
         android:baselineAligned="false"
         android:isScrollContainer="false"
         android:padding="4dp"
+        android:focusable="true"
         android:id="@+id/note_textedit"
         android:soundEffectsEnabled="false"
         android:animationCache="false">
@@ -53,6 +52,7 @@
             android:id="@+id/content"
             android:minHeight="@dimen/note_content_min_height"
             android:minWidth="@dimen/note_content_min_width"
+            android:maxHeight="@dimen/note_content_min_height"
             android:hint="@string/note_edit_hint"
             android:gravity="top"
             android:inputType="textAutoComplete|textAutoCorrect|textMultiLine"
@@ -95,11 +95,11 @@
             android:background="@android:drawable/ic_menu_add"
             android:layout_width="@dimen/note_side_menu_button"
             android:layout_height="@dimen/note_side_menu_button" />
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:background="@android:drawable/ic_menu_edit"
-            android:layout_width="@dimen/note_side_menu_button"
-            android:layout_height="@dimen/note_side_menu_button" />
+        <!--<Button-->
+            <!--style="?android:attr/buttonStyleSmall"-->
+            <!--android:background="@android:drawable/ic_menu_edit"-->
+            <!--android:layout_width="@dimen/note_side_menu_button"-->
+            <!--android:layout_height="@dimen/note_side_menu_button" />-->
 
     </LinearLayout>
 

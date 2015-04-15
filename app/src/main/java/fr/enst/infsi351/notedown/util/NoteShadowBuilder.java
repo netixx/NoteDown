@@ -22,7 +22,6 @@ public class NoteShadowBuilder extends DragShadowBuilder {
     @Override
     public void onProvideShadowMetrics(Point shadowSize, Point shadowTouchPoint) {
         shadowSize.set(v.getWidth(), v.getHeight());
-        System.out.println("touchPoint = " + touchPoint);
         shadowTouchPoint.set(touchPoint.x, touchPoint.y);
     }
 }

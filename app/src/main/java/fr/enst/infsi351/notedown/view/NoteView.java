@@ -5,9 +5,11 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
+import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnDragListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
@@ -28,10 +30,10 @@ import fr.enst.infsi351.notedown.util.NoteShadowBuilder;
 // * Use the {@link NoteFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class NoteView extends FrameLayout implements OnTouchListener, View.OnClickListener, OnFocusChangeListener, OnLongClickListener {
+public class NoteView extends FrameLayout implements OnTouchListener, View.OnClickListener, OnFocusChangeListener, OnLongClickListener, OnDragListener {
 
     public static final int CONTROLS_ANIMATE_DURATION_MILLIS = 100;
-    private static final int CONTENT_ANIMATE_DURATION_MILLIS = 100;
+
     public int minWidth;
     public int minHeight;
 
@@ -88,6 +90,8 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         title.setOnFocusChangeListener(this);
         content.setOnFocusChangeListener(this);
         expandControls();
+        title.setOnDragListener(this);
+        content.setOnDragListener(this);
     }
 
 
@@ -175,6 +179,9 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         if (hasFocus) {
             expandControls();
             expandView();
+            if (!title.hasFocus()) {
+                content.requestFocus();
+            }
         } else {
             collapseControls();
             collapseView();
@@ -186,7 +193,7 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
 //        MaxHeightAnimation ha = new MaxHeightAnimation(content, (int) content.getTextSize());
 //        ha.setDuration(CONTENT_ANIMATE_DURATION_MILLIS);
 //        content.startAnimation(ha);
-        content.setMaxHeight((int) content.getTextSize());
+        content.setMaxHeight(getResources().getDimensionPixelSize(R.dimen.note_content_min_height));
     }
 
     public void expandView() {
@@ -230,4 +237,52 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
         text.setBackground(d);
     }
 
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+        System.out.println("NoteView.onDrag");
+        System.out.println("event.getAction() = " + event.getAction());
+        switch (event.getAction()) {
+            case DragEvent.ACTION_DRAG_STARTED:
+                break;
+            case DragEvent.ACTION_DRAG_ENTERED:
+                break;
+            case DragEvent.ACTION_DRAG_EXITED:
+                break;
+            case DragEvent.ACTION_DROP:
+                System.out.println("drag dropped note");
+//                FrameLayout.LayoutParams lp = (LayoutParams) this.getLayoutParams();
+//                float x = lp.leftMargin + event.getX();
+//                float y = lp.topMargin + event.getY();
+//                parent.dropDrag(event, x, y);
+                NoteView dv = (NoteView) event.getLocalState();
+                this.mergeNote(dv);
+                parent.removeDisplayedNote(dv);
+                break;
+            case DragEvent.ACTION_DRAG_ENDED:
+                System.out.println("drag ended note");
+//                    v.setBackground(normalShape);
+//                View dv = (View) event.getLocalState();
+//                dv.setVisibility(VISIBLE);
+//                dv.invalidate();
+
+            default:
+                break;
+        }
+        return true;
+    }
+
+    public void mergeNote(NoteView note) {
+        if (note.content.getText().length() > 0) {
+            String link = "";
+            if (this.content.getText().length() > 0)
+                link = "\n";
+            this.content.setText(this.content.getText() + link + note.content.getText());
+        }
+        if (note.title.getText().length() > 0) {
+            String link = "";
+            if (this.title.getText().length() > 0)
+                link = " & ";
+                this.title.setText(this.title.getText() + link + note.title.getText());
+        }
+    }
 }
