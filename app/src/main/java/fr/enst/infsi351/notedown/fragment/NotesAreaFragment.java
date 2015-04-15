@@ -267,24 +267,24 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
             return true;
         }
     }
-    private int _offsetx;
-    private int _offsety;
+    private float _offsetx = 0;
+    private float _offsety = 0;
 
     @Override
     public boolean onDrag(View v, DragEvent event) {
-        //TODO : fix offset and visibility
         switch (event.getAction()) {
             case DragEvent.ACTION_DRAG_STARTED:
-                NoteView otv = (NoteView) event.getLocalState();
-                FrameLayout.LayoutParams oLayoutParams = (FrameLayout.LayoutParams) otv.getLayoutParams();
-                _offsetx = oLayoutParams.leftMargin - (int) event.getX();
-                _offsety = oLayoutParams.topMargin - (int) event.getY();
-//                otv.setVisibility(View.INVISIBLE);
-//                otv.invalidate();
+                System.out.println("drag started");
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
 //                    v.setBackground(enterShape);
                 System.out.println("drag entered");
+                NoteView otv = (NoteView) event.getLocalState();
+                FrameLayout.LayoutParams oLayoutParams = (FrameLayout.LayoutParams) otv.getLayoutParams();
+                _offsetx = oLayoutParams.leftMargin - event.getX();
+                _offsety = oLayoutParams.topMargin - event.getY();
+                otv.setVisibility(View.INVISIBLE);
+                otv.invalidate();
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
 //                    v.setBackground(normalShape);
@@ -294,10 +294,10 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
                 System.out.println("drag dropped");
                 NoteView tv = (NoteView) event.getLocalState();
                 FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) tv.getLayoutParams();
-                layoutParams.setMargins((int) event.getX() + _offsetx,(int) event.getY() + _offsety , 0, 0);
+                layoutParams.setMargins((int) (event.getX() + _offsetx),(int) (event.getY() + _offsety), 0, 0);
                 tv.setLayoutParams(layoutParams);
-//                tv.setVisibility(View.VISIBLE);
-//                tv.invalidate();
+                tv.setVisibility(View.VISIBLE);
+                tv.invalidate();
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 System.out.println("drag ended");
