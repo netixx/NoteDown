@@ -273,17 +273,23 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
     public boolean onDrag(View v, DragEvent event) {
         switch (event.getAction()) {
             case DragEvent.ACTION_DRAG_STARTED:
+//                NoteView tv = (NoteView) event.getLocalState();
+//                FrameLayout.LayoutParams o2LayoutParams = (FrameLayout.LayoutParams) tv.getLayoutParams();
+//                _offsetx = o2LayoutParams.leftMargin - event.getX();
+//                _offsety = o2LayoutParams.topMargin - event.getY();
 //                System.out.println("drag started");
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
 //                    v.setBackground(enterShape);
-//                System.out.println("drag entered");
+                System.out.println("drag entered");
                 NoteView otv = (NoteView) event.getLocalState();
                 FrameLayout.LayoutParams oLayoutParams = (FrameLayout.LayoutParams) otv.getLayoutParams();
                 _offsetx = oLayoutParams.leftMargin - event.getX();
                 _offsety = oLayoutParams.topMargin - event.getY();
-//                otv.setOnDragListener(null);
-                otv.setVisibility(View.INVISIBLE);
+                otv.setOnDragListener(null);
+                otv.setEnabled(false);
+                otv.setVisibility(View.GONE);
+//                otv.setVisibility(View.INVISIBLE);
                 otv.invalidate();
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
@@ -296,9 +302,11 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
             case DragEvent.ACTION_DRAG_ENDED:
 //                System.out.println("drag ended");
 //                    v.setBackground(normalShape);
-                NoteView tv = (NoteView) event.getLocalState();
-                tv.setVisibility(View.VISIBLE);
-                tv.invalidate();
+//                this.dropDrag(event, event.getX(), event.getY());
+//                NoteView tv = (NoteView) event.getLocalState();
+//                tv.setVisibility(View.VISIBLE);
+//                tv.setEnabled(true);
+//                tv.invalidate();
 //                tv.setOnDragListener(tv);
             default:
                 break;
@@ -308,11 +316,13 @@ public class NotesAreaFragment extends Fragment implements OnDragListener {
 
 
     public void dropDrag(DragEvent event, float x, float y) {
+        System.out.println("_offsetx = " + _offsetx);
         NoteView tv = (NoteView) event.getLocalState();
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) tv.getLayoutParams();
-        layoutParams.setMargins((int) (x + _offsetx),(int) (y + _offsety), 0, 0);
+        layoutParams.setMargins((int) (x+_offsetx),(int) (y+_offsety), 0, 0);
         tv.setLayoutParams(layoutParams);
         tv.setVisibility(View.VISIBLE);
+        tv.setEnabled(true);
         tv.invalidate();
     }
 

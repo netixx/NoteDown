@@ -250,13 +250,17 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
                 break;
             case DragEvent.ACTION_DROP:
                 System.out.println("drag dropped note");
-//                FrameLayout.LayoutParams lp = (LayoutParams) this.getLayoutParams();
-//                float x = lp.leftMargin + event.getX();
-//                float y = lp.topMargin + event.getY();
-//                parent.dropDrag(event, x, y);
+
                 NoteView dv = (NoteView) event.getLocalState();
-                this.mergeNote(dv);
-                parent.removeDisplayedNote(dv);
+                if (this.equals(dv)) {
+                    FrameLayout.LayoutParams lp = (LayoutParams) this.getLayoutParams();
+                    float x = lp.leftMargin + event.getX();
+                    float y = lp.topMargin + event.getY();
+                    parent.dropDrag(event, x, y);
+                } else {
+                    this.mergeNote(dv);
+                    parent.removeDisplayedNote(dv);
+                }
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 System.out.println("drag ended note");
