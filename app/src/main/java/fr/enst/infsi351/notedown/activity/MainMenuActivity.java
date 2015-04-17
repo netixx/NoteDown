@@ -12,8 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.enst.infsi351.notedown.FileChooserDialog;
-import fr.enst.infsi351.notedown.FileChooserDialog.FileSelectedListener;
+import fr.enst.infsi351.notedown.dialog.FileChooserDialog;
+import fr.enst.infsi351.notedown.dialog.FileChooserDialog.FileSelectedListener;
 import fr.enst.infsi351.notedown.R;
 import fr.enst.infsi351.notedown.util.RecentItem;
 import fr.enst.infsi351.notedown.util.RecentListAdapter;

@@ -1,4 +1,4 @@
-package fr.enst.infsi351.notedown;
+package fr.enst.infsi351.notedown.dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import fr.enst.infsi351.notedown.ListenerList.FireHandler;
+import fr.enst.infsi351.notedown.util.ListenerList;
+import fr.enst.infsi351.notedown.util.ListenerList.FireHandler;
 
 /**
  * Generic file chooser dialog (extracted from StackOverflow
@@ -168,32 +169,4 @@ public class FileChooserDialog {
     public void setFileEndsWith(String fileEndsWith) {
         this.fileEndsWith = ((fileEndsWith != null) ? fileEndsWith.toLowerCase() : null);
     }
-}
-
-class ListenerList<L> {
-    private List<L> listenerList = new ArrayList<>();
-
-    public interface FireHandler<L> {
-        void fireEvent(L listener);
-    }
-
-    public void add(L listener) {
-        listenerList.add(listener);
-    }
-
-    public void fireEvent(FireHandler<L> fireHandler) {
-        List<L> copy = new ArrayList<>(listenerList);
-        for (L l : copy) {
-            fireHandler.fireEvent(l);
-        }
-    }
-
-    public void remove(L listener) {
-        listenerList.remove(listener);
-    }
-
-    public List<L> getListenerList() {
-        return listenerList;
-    }
-
 }
