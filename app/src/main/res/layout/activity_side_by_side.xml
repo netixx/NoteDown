@@ -5,6 +5,13 @@
                 tools:context="fr.enst.infsi351.notedown.activity.SideBySideActivity"
                 android:background="@color/default_background"
                 android:orientation="vertical">
+
+    <fragment android:name="fr.enst.infsi351.notedown.fragment.HeaderFragment"
+              android:id="@+id/header"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              tools:layout="@layout/fragment_notes_area" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

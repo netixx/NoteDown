@@ -13,13 +13,6 @@
          android:layout_weight="1"
          android:id="@+id/notes_area">
 
-        <fragment android:name="fr.enst.infsi351.notedown.fragment.page_header"
-            android:id="@+id/notes"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_notes_area" />
-
     <!--<view-->
         <!--android:layout_width="fill_parent"-->
         <!--android:layout_height="fill_parent"-->
@@ -32,17 +25,14 @@
         android:layout_width="@dimen/trash_folded_width"
         android:layout_height="match_parent"
         android:id="@+id/notes_trash"
-        android:background="@color/trash_normal_color"
-        >
+        android:background="@color/trash_normal_color">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:drawable/ic_menu_delete"
             android:contentDescription="trash"
-            android:layout_alignParentLeft="true"
             android:layout_marginLeft="0dp"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:layout_gravity="center"/>
     </FrameLayout>
