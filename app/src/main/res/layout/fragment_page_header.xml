@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="fr.enst.infsi351.notedown.fragment.page_header"
+    android:orientation="horizontal">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/alert_button"
+        android:id="@+id/button"
+        android:background="@drawable/note_menu_bg"
+        style="@style/Base.TextAppearance.AppCompat.Display1"
+        android:paddingEnd="40dp"
+        android:paddingStart="40dp" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/editText"
+        android:background="@drawable/note_bg"
+        android:hint="@string/header_title_hint"
+        android:gravity="center"
+        android:textSize="40sp" />
+
+</LinearLayout>

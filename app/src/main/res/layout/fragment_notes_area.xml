@@ -13,6 +13,13 @@
          android:layout_weight="1"
          android:id="@+id/notes_area">
 
+        <fragment android:name="fr.enst.infsi351.notedown.fragment.page_header"
+            android:id="@+id/notes"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_notes_area" />
+
     <!--<view-->
         <!--android:layout_width="fill_parent"-->
         <!--android:layout_height="fill_parent"-->
@@ -27,6 +34,7 @@
         android:id="@+id/notes_trash"
         android:background="@color/trash_normal_color"
         >
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
