@@ -11,34 +11,40 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import fr.enst.infsi351.notedown.R;
+import fr.enst.infsi351.notedown.view.CutNoteView;
 
 /**
  * Created by francois on 03/04/15.
  */
 public class CutPdfRendererFragment extends PdfRendererFragment {
 
+    private HashMap<Integer, List<CutNoteView>> cuts = new HashMap<>();
+
+    int splitSize = 200;
+    private ViewGroup imageFrame;
+
     @Override
     public void onViewCreated(View view, Bundle savedInstance) {
+        splitSize = getResources().getDimensionPixelSize(R.dimen.cut_note_height);
         super.onViewCreated(view, savedInstance);
-        final ViewGroup imageFrame = (ViewGroup) view.findViewById(R.id.pdf_frame);
+        imageFrame = (ViewGroup) view.findViewById(R.id.pdf_frame);
         mImageView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        mImageView.setDrawingCacheEnabled(true);
-                        mImageView.setImageBitmap(splitBitmap(v.getDrawingCache(), event.getY()));
-                        mImageView.setDrawingCacheEnabled(false);
+                        double heightFact = cutAt(event.getY());
+                        addCut(heightFact, event.getY());
 
-//                        Rect bounds = getImageBounds(mImageView);
-//                        View note = new NoteView(v.getContext());
-//                        FrameLayout.LayoutParams params = new LayoutParams(mImageView.getWidth(),splitSize);
-//                        System.out.println(mImageView.getDrawable().getBounds().left);
-//                        params.setMargins(bounds.left, (int) event.getY(), 0, 0);
-//                        imageFrame.addView(note, params);
                     default:
 
                 }
@@ -47,7 +53,48 @@ public class CutPdfRendererFragment extends PdfRendererFragment {
         });
     }
 
-    int splitSize = 200;
+    public double cutAt(float cutPoint) {
+        mImageView.setDrawingCacheEnabled(true);
+        Bitmap oBitmap = mImageView.getDrawingCache();
+        Bitmap newBitmap = splitBitmap(oBitmap, cutPoint);
+        mImageView.setImageBitmap(newBitmap);
+        double heightFact = ((double) oBitmap.getHeight())/newBitmap.getHeight();
+        mImageView.setDrawingCacheEnabled(false);
+        return heightFact;
+    }
+
+    @Override
+    public void showPage(int currentPage, int move)  {
+        engine.showPage(currentPage + move, mImageView);
+        //add cuts here
+        if (cuts.containsKey(currentPage+move)) {
+            for (CutNoteView c : cuts.get(currentPage+move)) {
+            }
+        }
+    }
+
+    private void addCut(double heightFactor, float cutPoint) {
+        if (! cuts.containsKey(getCurrentPageIndex())) {
+            cuts.put(getCurrentPageIndex(), new ArrayList<CutNoteView>());
+        }
+        List<CutNoteView> c = cuts.get(getCurrentPageIndex());
+        for (CutNoteView n : c) {
+            //move note according to new redimensionning
+            FrameLayout.LayoutParams p = (LayoutParams) n.getLayoutParams();
+            p.height = (int) (p.height * heightFactor);
+            p.setMargins(p.leftMargin, (int) (n.initialY*heightFactor), 0, 0);
+            n.invalidate();
+        }
+        Rect drawBounds = mImageView.getDrawable().getBounds();
+        Rect bounds = getImageBounds(mImageView);
+        CutNoteView note = new CutNoteView(imageFrame.getContext(), (int) cutPoint);
+        FrameLayout.LayoutParams params = new LayoutParams(imageFrame.getWidth(), (int) (splitSize*heightFactor));
+        params.setMargins(bounds.left, (int) (cutPoint * heightFactor), 0, 0);
+        imageFrame.addView(note, params);
+        c.add(note);
+
+    }
+
     private Bitmap splitBitmap(Bitmap bm, float x) {
         if (x >= bm.getHeight()) {
             return bm;

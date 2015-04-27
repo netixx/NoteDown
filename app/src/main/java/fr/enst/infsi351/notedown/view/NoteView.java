@@ -79,7 +79,7 @@ public class NoteView extends FrameLayout implements OnTouchListener, View.OnCli
 //        title.setOnLongClickListener(this);
 //        content.setOnLongClickListener(this);
 
-        this.setOnTouchListener(this);
+//        this.setOnTouchListener(this);
         title.setOnTouchListener(this);
         content.setOnTouchListener(this);
 

@@ -23,4 +23,5 @@
     <dimen name="pdf_marker_width">20dp</dimen>
     <dimen name="pdf_marker_height">20dp</dimen>
     <dimen name="pdf_marker_padding">3dp</dimen>
+    <dimen name="cut_note_height">100dp</dimen>
 </resources>
